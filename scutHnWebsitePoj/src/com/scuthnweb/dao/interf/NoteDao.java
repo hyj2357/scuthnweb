@@ -29,6 +29,7 @@ public interface NoteDao {
 	 * @param note_content
 	 * @param note_publisher
 	 * @return
+	 * @deprecated
 	 */
 	public List<Note> findNoteM( int    note_id,
                            String note_name,

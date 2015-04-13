@@ -17,6 +17,7 @@ public interface MessageDao {
            * Jun:
            * @param message_id
            * @return
+           * @deprecated
            */
           public List<Message> findMessageM( int message_i, String message_content );
           

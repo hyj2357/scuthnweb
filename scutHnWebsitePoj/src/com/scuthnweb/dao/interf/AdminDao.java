@@ -10,6 +10,7 @@ public interface AdminDao {
 	 * @param admin_name
 	 * @param admin_password
 	 * @return
+	 * @deprecated
 	 */
 	public Admin findByNameAndPassword( String name, String admin_password);
 	
@@ -43,6 +44,7 @@ public interface AdminDao {
      * @param admin_name
      * @param admin_password
      * @return
+     * @deprecated
      */
 	public List<Admin> findAdminM( int admin_id, String admin_name, String admin_password);
 

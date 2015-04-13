@@ -29,6 +29,7 @@ public interface NeedDao {
     * @param need_content
     * @param need_state
     * @return
+    * @deprecated
     */
    public List<Need> findNeedM(  int    need_id,
                            String need_name,

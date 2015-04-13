@@ -6,7 +6,7 @@ import com.scuthnweb.domain.Share_link;
 
 public interface Share_linkDao {
 	/**
-	 * 
+	 * Jun:创建链接
 	 * @param sl
 	 * @return
 	 */
@@ -14,7 +14,7 @@ public interface Share_linkDao {
      
      
     /**
-     * Jun:
+     * Jun:更新链接
      * @param sl
      * @return
      */
@@ -23,13 +23,14 @@ public interface Share_linkDao {
      
      
      /**
-      * Jun:����ʽ������Դ���ӱ�
+      * Jun:
       * @param share_link_id
       * @param share_link_name
       * @param share_link_content
       * @param share_link_publisher 
       * @param share_link_state
       * @return
+      * @deprecated
       */
      public  List<Share_link> findShare_linkM( int     share_link_id,
                                                String  share_link_name, 
@@ -38,7 +39,7 @@ public interface Share_linkDao {
                                                int     share_link_state );
      
      /**
-      * Jun:
+      * Jun:通过链接id查询链接
       * @param share_link_id
       * @return
       */
@@ -46,7 +47,7 @@ public interface Share_linkDao {
      
      
      /**
-      * Jun:
+      * Jun:查询所有链接
       * @param share_link_state 0：审核通过 1：审核不通过 2：等待审核
       * @return
       */
@@ -54,7 +55,7 @@ public interface Share_linkDao {
      
      
      /**
-      * Jun:
+      * Jun:通过链接发布者查询链接
       * @param share_link_publisher
       * @return
       */
@@ -62,7 +63,7 @@ public interface Share_linkDao {
      
            
      /**
-      * 
+      * Jun:删除链接
       * @param sl
       * @return
       */

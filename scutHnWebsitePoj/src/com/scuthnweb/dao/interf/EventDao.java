@@ -38,6 +38,7 @@ public interface EventDao {
 	 * @param event_publisher
 	 * @param event_state
 	 * @return
+	 * @deprecated
 	 */
 	public  List<Event> findEventM(int    event_id,String event_name,String event_intro,
                                Date   event_time,Date   event_endtime,int    event_maxPeople,
@@ -59,7 +60,7 @@ public interface EventDao {
 	
 	
 	/**
-	 * Jun:
+	 * Jun:通过活动发布者查询活动
 	 * @param event_publisher
 	 * @return
 	 */

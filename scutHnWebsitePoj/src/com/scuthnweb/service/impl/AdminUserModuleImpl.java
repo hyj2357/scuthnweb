@@ -68,8 +68,7 @@ public class AdminUserModuleImpl implements AdminUserModule{
 
 	@Override
 	public Customer checkUserInfo(int customer_id) {
-		
-		return null;
+		return this.customerDao.findCustomerByCustomerID(customer_id);
 	}
 
 	@Override
@@ -80,8 +79,25 @@ public class AdminUserModuleImpl implements AdminUserModule{
 
 	@Override
 	public boolean modifyUserInfo(Admin admin, Customer customer,String customer_name, String customer_password, int customer_sex,String customer_grade, String customer_major, int customer_phone,int customer_qq, String customer_email, String customer_room) {
-		// TODO Auto-generated method stub
-		return false;
+		customer.setCustomer_email(customer_email);
+		customer.setCustomer_grade(customer_grade);
+		customer.setCustomer_major(customer_major);
+		customer.setCustomer_password(customer_password);
+		customer.setCustomer_phone(customer_phone);
+		customer.setCustomer_qq(customer_qq);
+		customer.setCustomer_room(customer_room);
+		customer.setCustomer_sex(customer_sex);
+		
+		Message ms = new Message();
+		ms.setMessage_title("用户个人信息修改消息");
+		ms.setMessage_content( "您的个人基本信息已被管理员[id:"+admin.getId()+" "+admin.getName()
+				              +"]" + "修改，如有问题，请联系该管理员；");
+		ms.setMessage_publisher(admin);
+		ms.setMessage_receiver(customer);
+		ms.setMessage_state(0);
+		//推送消息
+		this.messageDao.createMessage(ms);
+		return true;
 	}
 
 }

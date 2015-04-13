@@ -16,6 +16,7 @@ public interface CustomerDao {
 	 * @Param customer_name
 	 * @param customer_password
 	 * @return
+	 * @deprecated
 	 */
 	public    Customer findByNameAndPassword( String customer_name, String customer_password ) throws SQLException;
 	
@@ -58,6 +59,7 @@ public interface CustomerDao {
      * @param customer_room
      * @param customer_state
      * @return
+     * @deprecated
      */
     public  List<Customer> findCustomerM( int    customer_id,
                                    String customer_name,
@@ -81,7 +83,7 @@ public interface CustomerDao {
     
     
     /**
-     * 
+     * Jun:通过用户ID查询用户
      * @param customer_id
      * @return
      */

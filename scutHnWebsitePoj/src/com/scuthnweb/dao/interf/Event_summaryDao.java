@@ -20,6 +20,7 @@ public interface Event_summaryDao {
 	 * @param Event_id
 	 * @param Event_customer
 	 * @return
+	 * @deprecated
 	 */
 	public List<Event_summary> findEvent_summaryM( int Event_id, int Event_customer);
 	

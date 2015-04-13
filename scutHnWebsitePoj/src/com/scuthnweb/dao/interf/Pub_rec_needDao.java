@@ -26,6 +26,7 @@ public interface Pub_rec_needDao {
 	 * @param need_id
 	 * @param need_receiver
 	 * @return
+	 * @deprecated
 	 */
 	public  List<Pub_rec_need>  findPub_rec_needM( int need_id, int need_receiver);
 	
