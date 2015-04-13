@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Event_summary" table="event_summary">
+      <id name="event_summary_id" type="int" length="10"><generator class="identity"/></id>
+      
+      <many-to-one name="event" class="Event" column="event_id"/>
+      
+      <many-to-one name="event_customer" class="BaseCustomer" column="event_customer"/>      
+   </class>
+   <sql-query name="findByEvent_id_event_summary_query">
+          <return alias="es" class="Event_summary"/>
+                                  
+          select es.*
+          from event_summary es
+          where es.event_id=?
+   </sql-query>
+   
+   <sql-query name="findByEvent_customer_event_summary_query">
+          <return alias="es" class="Event_summary"/>
+                                  
+          select es.*
+          from event_summary es
+          where es.event_customer=?
+   </sql-query>
+   
+   <sql-query name="findByEvent_idAndEvent_customer_event_summary_query">
+          <return alias="es" class="Event_summary"/>
+                                  
+          select es.*
+          from event_summary es
+          where es.event_id=? and es.event_customer=?
+   </sql-query>
+   
+</hibernate-mapping>

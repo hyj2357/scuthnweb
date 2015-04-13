@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Share_link" table="share_link">
+      <id name="share_link_id" type="int"><generator class="identity"/></id>
+      <property name="share_link_name" type="string" length="30"/>
+      <property name="share_link_content" type="string" length="1024"/>
+      <property name="share_link_state" type="int" length="2"/>              
+      
+      <many-to-one name="share_link_publisher" class="BaseCustomer" column="share_link_publisher"/>
+      
+   </class>
+   
+   <sql-query name="findAllShare_share_link_query_state">
+       <return-scalar column="share_link_id" type="int"/>
+       <return-scalar column="share_link_name" type="string"/>       
+       select sl.share_link_id,sl.share_link_name
+       from share_link sl
+       where sl.share_link_state=?
+   </sql-query>
+   
+   
+   <sql-query name="findByShare_link_publisher_share_link_query">
+       <return-scalar column="share_link_id" type="int"/>
+       <return-scalar column="share_link_name" type="string"/>       
+       select sl.share_link_id,sl.share_link_name
+       from share_link sl
+       where sl.share_link_publisher=?
+   </sql-query>   
+   
+</hibernate-mapping>

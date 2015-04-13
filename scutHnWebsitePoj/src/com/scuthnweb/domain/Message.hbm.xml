@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Message" table="message">
+      <id name="message_id" type="int"><generator class="identity"/></id>
+      <property name="message_state" type="int"/>
+      <property name="message_title" type="string" length="25"/>
+      <property name="message_content" type="string" length="255"/>
+      
+      <many-to-one name="message_receiver" class="BaseCustomer" column="message_receiver"/>
+      
+      <many-to-one name="message_publisher" class="BaseCustomer" column="message_publisher"/>
+      
+    </class>
+   
+   <sql-query name="findByMessage_publisher_message_query">
+          <return-scalar column="message_id" type="int"/>
+          <return-scalar column="message_title" type="string"/>    
+          <return-scalar column="message_state" type="int"/>  
+                            
+          select ms.message_id,ms.message_title,ms.message_state
+          from message ms 
+          where ms.message_publisher=?
+   </sql-query>
+   
+   
+   <sql-query name="findByMessage_receiver_message_query">
+          <return-scalar column="message_id" type="int"/>
+          <return-scalar column="message_title" type="string"/>    
+          <return-scalar column="message_state" type="int"/>    
+                          
+          select ms.message_id,ms.message_title,ms.message_state
+          from message ms 
+          where ms.message_receiver=?
+   </sql-query>
+   
+   
+</hibernate-mapping>

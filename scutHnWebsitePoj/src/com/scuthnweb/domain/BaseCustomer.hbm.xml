@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="BaseCustomer" table="bscustomer">
+      <id name="id" type="int" length="10">
+      	<generator class="identity"/>
+	  </id>
+      <property name="name" type="string" length="32"/>
+      
+          <set name="event_summary" inverse="true" cascade="all">
+            <key column="event_customer"/>
+            <one-to-many class="Event_summary"/>
+          </set> 
+          
+          <set name="receive_message" inverse="true" cascade="all">
+            <key column="message_receiver"/>
+            <one-to-many class="Message"/>
+          </set> 
+          
+          <set name="publish_message" inverse="true" cascade="all">
+            <key column="message_publisher"/>
+            <one-to-many class="Message"/>
+          </set>                    
+          
+          <set name="share_link" inverse="true" cascade="all">
+            <key column="share_link_publisher"/>
+            <one-to-many class="Share_link"/>
+          </set> 
+          
+          <set name="need" inverse="true" cascade="all">
+            <key column="need_publisher"/>
+            <one-to-many class="Need"/>
+          </set> 
+          
+          <set name="pub_rec_need" inverse="true" cascade="all">
+            <key column="need_receiver"/>
+            <one-to-many class="Pub_rec_need"/>
+          </set> 
+          
+      <joined-subclass name="Admin" table="admin">
+          <key column="id"/>
+          <property name="name" type="string" length="32"/>           
+          <property name="admin_password" type="string" length="32"/> 
+          <property name="admin_state" type="int"/>
+          
+          <set name="note" inverse="true" cascade="all">
+            <key column="note_publisher"/>
+            <one-to-many class="Note"/>
+          </set> 
+          
+          <set name="event" inverse="true" cascade="all">
+            <key column="event_publisher"/>
+            <one-to-many class="Event"/>
+          </set> 
+          
+      </joined-subclass>      
+      <joined-subclass name="Customer" table="customer">
+          <key column="id"/>
+          <property name="name" type="string" length="32"/>           
+          <property name="customer_password" type="string" length="32"/>
+          <property name="customer_sex" type="int" length="1"/>
+          <property name="customer_email" type="string" length="255"/>
+          <property name="customer_grade" type="string" length="4"/>
+          <property name="customer_major" type="string" length="20"/>   
+          <property name="customer_phone" type="int" length="11"/>
+          <property name="customer_qq" type="int" length="10"/>
+          <property name="customer_room" type="string" length="10"/>      
+          <property name="customer_state" type="int" length="2"/>   
+             
+      </joined-subclass>      
+   </class>
+   
+   <sql-query name="findByIdAndPassword_admin_query">
+          <return alias="admin" class="com.scuthnweb.domain.Admin"/>
+          select ad.*
+          from admin ad
+          where ad.id=? and ad.admin_password=?
+   </sql-query>
+   
+   <sql-query name="findCustomerByCustomerEmail_customer_query">
+          <return alias="customer" class="com.scuthnweb.domain.Customer"/>
+          select cs.*
+          from customer cs
+          where cs.customer_email=?
+   </sql-query>     
+   
+   <sql-query name="findByIdAndPassword_customer_query">
+          <return alias="customer" class="com.scuthnweb.domain.Customer"/>
+          select cs.*
+          from customer cs
+          where cs.id=? and cs.customer_password=?
+   </sql-query>     
+   
+   <sql-query name="findAllCustomer_customer_query">
+          <return-scalar column="id" type="int"/>
+          <return-scalar column="name" type="string"/>          
+          select cs.id,cs.name
+          from customer cs 
+   </sql-query>   
+   
+   <sql-query name="findAllCustomer_customer_query_authority">
+          <return-scalar column="id" type="int"/>
+          <return-scalar column="name" type="string"/>          
+          select cs.id,cs.name
+          from customer cs 
+          where cs.customer_state=?
+   </sql-query>      
+</hibernate-mapping>

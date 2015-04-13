@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Need" table="need">
+      <id name="need_id" type="int" length="10"><generator class="identity"/></id>
+      <property name="need_name" type="string" length="30"/>
+      <property name="need_content" type="string" length="255"/>
+      <property name="need_state" type="int" length="1"/>          
+    
+      <many-to-one name="need_publisher" class="BaseCustomer" column="need_publisher"/>
+      
+      <set name="pub_rec_need" inverse="true" cascade="all">
+            <key column="need_id"/>
+            <one-to-many class="Pub_rec_need"/>
+      </set> 
+          
+    </class>
+    
+    <sql-query name="findAllNeed_need_query_state">
+          <return-scalar column="need_id" type="int"/>
+          <return-scalar column="need_name" type="string"/>    
+                          
+          select nd.need_id,nd.need_name,
+          from need nt
+          where nd.need_state=?
+   </sql-query>
+   
+   <sql-query name="findAllNeed_need_query">
+          <return-scalar column="need_id" type="int"/>
+          <return-scalar column="need_name" type="string"/>    
+                          
+          select nd.need_id,nd.need_name,
+          from need nt
+   </sql-query>
+   
+    <sql-query name="findByNeed_publisher_need_query">
+        <return alias="need" class="com.scuthnweb.domain.Need"/>
+        select nd.*
+        from need nd
+        where nd.need_publisher=?
+    </sql-query>   
+        
+</hibernate-mapping>

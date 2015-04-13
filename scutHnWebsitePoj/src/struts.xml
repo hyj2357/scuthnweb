@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<!DOCTYPE struts  PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd" >
+
+
+<struts>
+   
+
+    <include file="struts-part1.xml"/>
+	
+    <constant name="struts.devMode" value="false"/>
+    
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    
+    <package name="scuthnweb" extends="struts-default" namespace="/">
+       
+       <!-- 拦截器配置-->
+       <interceptors>
+       
+          <!-- 拦截器配置 -->
+          <interceptor name="adminIntercept" class="com.scuthnweb.action.authority.AdminInterceptor"/>             
+          <interceptor name="baseCustomerIntercept" class="com.scuthnweb.action.authority.BaseCustomerInterceptor"/>             
+          <interceptor name="baseCustomerAuthority" class="com.scuthnweb.action.authority.BaseCustomerAuthority"/>             
+          <interceptor name="eventIntercept" class="com.scuthnweb.action.authority.EventInterceptor"/>             
+                    
+          <!-- 拦截器栈配置 -->
+          <interceptor-stack name="adminInterceptStack">
+             <interceptor-ref name="adminIntercept"/>
+             <interceptor-ref name="defaultStack"/>
+          </interceptor-stack>
+          
+          <interceptor-stack name="baseCustomerInterceptStack">
+             <interceptor-ref name="baseCustomerIntercept"/>
+             <interceptor-ref name="defaultStack"/>
+          </interceptor-stack>
+          
+          <interceptor-stack name="eventInterceptStack">
+             <interceptor-ref name="eventIntercept"/>
+             <interceptor-ref name="defaultStack"/>
+          </interceptor-stack>          
+          
+       </interceptors>
+       
+         
+         <action name="addAdmin_testAction" class="addAdmin_testAction">
+           <result name="error">/regist.jsp</result>
+           <result name="success">/welcome.jsp</result>           
+         </action> 
+            
+<!-- 管理员个人管理模块 --> 
+
+       <!-- Jun:管理员登录 -->
+       <action name="adminLoginAction" class="adminLogin">
+           <result name="input">/WEB-INF/adminAdModuleJsp/adminLogin.jsp</result>
+           <result name="success">/WEB-INF/adminAdModuleJsp/welcome.jsp</result>
+           <result name="error">/WEB-INF/adminAdModuleJsp/adminLogin.jsp</result>  
+           
+           <result name="setName">/WEB-INF/adminAdModuleJsp/setName.jsp</result>
+           <result name="modifyPassword">/WEB-INF/adminAdModuleJsp/modifyPassword.jsp</result>   
+           
+                   
+           <result name="testActAction">/WEB-INF/actModuleJsp/testActAction.jsp</result>                  
+      
+       </action>
+       
+       <action name="modifyPasswordAction" class="modifyPassword">
+           <result name="input">/WEB-INF/adminAdModuleJsp/modifyPassword.jsp</result>
+           <result name="success">/WEB-INF/adminAdModuleJsp/welcome.jsp</result>
+           <result name="error">/WEB-INF/adminAdModuleJsp/modifyPassword.jsp</result>  
+       </action>
+       
+       <action name="setNameAction" class="setName">
+           <result name="input">/WEB-INF/adminAdModuleJsp/setName.jsp</result>
+           <result name="success">/WEB-INF/adminAdModuleJsp/welcome.jsp</result>
+           <result name="error">/WEB-INF/adminAdModuleJsp/setName.jsp</result>  
+       </action>
+       
+<!-- End 管理员个人管理模块  --> 
+
+<!-- 活动模块 --> 
+       <action name="testActAction" class="com.scuthnweb.testforward.ActModuleTestAction">
+          <result name="checkAllAct" type="chain">
+                <param name="actionName">checkAllActAction</param>
+          </result>
+          <result name="checkPublish" type="chain">
+                <param name="actionName">checkPublishAction</param>
+          </result>   
+          
+          <result name="createAct">/WEB-INF/actModuleJsp/createAct.jsp</result>   
+                      
+          <result name="success">/WEB-INF/actModuleJsp/welcome.jsp</result>
+          <result name="error">/WEB-INF/actModuleJsp/createAct.jsp</result>                              
+       </action>
+       
+       <action name="createActAction" class="createAct">
+          <result name="input">/WEB-INF/actModuleJsp/createAct.jsp</result>          
+          <result name="success">/WEB-INF/actModuleJsp/welcome.jsp</result>
+          <result name="error">/WEB-INF/actModuleJsp/createAct.jsp</result>          
+          <interceptor-ref name="adminInterceptStack"/>
+          <interceptor-ref name="baseCustomerAuthority"/>                  
+       </action>
+               
+       <action name="checkAllActAction" class="checkAllAct">
+          <result name="success">/WEB-INF/actModuleJsp/checkAllAct.jsp</result>
+       </action>
+       
+       <action name="checkPublishAction" class="checkPublish">
+          <result name="success">/WEB-INF/actModuleJsp/checkPublishAct.jsp</result>
+       </action>
+       
+       <action name="checkTakePartInAction" class="checkTakePartIn">
+          <result name="success">/WEB-INF/actModuleJsp/checkPublishAct.jsp</result>
+       </action>
+            
+<!-- End 活动模块  --> 
+
+
+    </package>   
+</struts>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    	  
+    <!-- 配置业务逻辑层组件  -->
+	<bean id="actModule" class="com.scuthnweb.service.impl.ActModuleImpl">
+	   <property name="customerDao" ref="customerDao"/>
+	   <property name="adminDao" ref="adminDao"/>
+	   <property name="eventDao" ref="eventDao"/>
+	   <property name="event_summaryDao" ref="event_summaryDao"/>
+	   <property name="messageDao" ref="messageDao"/>
+	</bean>
+	
+	<bean id="adminAdModule" class="com.scuthnweb.service.impl.AdminAdModuleImpl">
+	   <property name="adminDao" ref="adminDao"/>
+	</bean>
+	
+	<bean id="adminUserModule" class="com.scuthnweb.service.impl.AdminUserModuleImpl">
+	   <property name="customerDao" ref="customerDao"/>
+	   <property name="messageDao" ref="messageDao"/>	   
+	</bean>
+	
+	<bean id="messageModule" class="com.scuthnweb.service.impl.MessageModuleImpl">
+	   <property name="messageDao" ref="messageDao"/>
+	</bean>
+	
+	<bean id="needModule" class="com.scuthnweb.service.impl.NeedModuleImpl">
+	   <property name="pub_rec_needDao" ref="pub_rec_needDao"/>
+	   <property name="messageDao" ref="messageDao"/>
+	   <property name="needDao" ref="needDao"/>
+	   <property name="customerDao" ref="customerDao"/>
+	   <property name="adminDao" ref="adminDao"/>	   	   
+	</bean>
+	
+	<bean id="noteModule" class="com.scuthnweb.service.impl.NoteModuleImpl">
+	   <property name="adminDao" ref="adminDao"/>
+	   <property name="noteDao" ref="noteDao"/>	   
+	</bean>
+	
+	<bean id="resLinkModule" class="com.scuthnweb.service.impl.ResLinkModuleImpl">
+	   <property name="messageDao" ref="messageDao"/>
+	   <property name="share_linkDao" ref="share_linkDao"/>	
+	</bean>
+	
+	<bean id="userAdminModule" class="com.scuthnweb.service.impl.UserAdminModuleImpl">
+	   <property name="customerDao" ref="customerDao"/>
+	   <property name="messageDao" ref="messageDao"/>	
+	</bean>
+	
+	<!-- 配置action -->
+	
+<!--  actModule -->
+	
+	<bean id="checkAct" class="com.scuthnweb.action.actmodule.CheckActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="checkUserInfo" class="com.scuthnweb.action.actmodule.CheckUserInfoAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="checkAllAct" class="com.scuthnweb.action.actmodule.CheckAllActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="checkPublish" class="com.scuthnweb.action.actmodule.CheckPublishAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="checkTakePartIn" class="com.scuthnweb.action.actmodule.CheckTakePartInAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="checkTakePartInUserInfo" class="com.scuthnweb.action.actmodule.CheckTakePartInUserInfoAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="exitAct" class="com.scuthnweb.action.actmodule.ExitActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>
+	
+	<bean id="offLineAct" class="com.scuthnweb.action.actmodule.OffLineActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>	
+	
+	<bean id="onLineAct" class="com.scuthnweb.action.actmodule.OnLineActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>	
+	
+	<bean id="createAct" class="com.scuthnweb.action.actmodule.CreateActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>	
+	
+	<bean id="deleteAct" class="com.scuthnweb.action.actmodule.DeleteActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>	
+	
+	<bean id="modifyAct" class="com.scuthnweb.action.actmodule.ModifyActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>	
+	
+	<bean id="takePartInAct" class="com.scuthnweb.action.actmodule.TakePartInActAction" scope="prototype">
+       <property name="actModule" ref="actModule"/>
+	</bean>	
+	
+<!--  end-actModule -->
+	
+    <bean id="addAdmin_testAction" class="com.scuthnweb.action.adminadmodule.AddAdmin_testAction" scope="prototype">
+       <property name="adminAdModule" ref="adminAdModule"/>
+	</bean>
+	
+	<bean id="adminLogin" class="com.scuthnweb.action.adminadmodule.AdminLoginAction" scope="prototype">
+       <property name="adminAdModule" ref="adminAdModule"/>
+	</bean>	
+	
+	<bean id="modifyPassword" class="com.scuthnweb.action.adminadmodule.ModifyPasswordAction" scope="prototype">
+       <property name="adminAdModule" ref="adminAdModule"/>
+	</bean>	
+	
+	<bean id="setName" class="com.scuthnweb.action.adminadmodule.SetNameAction" scope="prototype">
+       <property name="adminAdModule" ref="adminAdModule"/>
+	</bean>	
+	     
+</beans>

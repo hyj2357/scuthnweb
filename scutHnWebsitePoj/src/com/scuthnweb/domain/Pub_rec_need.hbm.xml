@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Pub_rec_need" table="pub_rec_need">
+      <id name="pub_rec_need_id" type="int"><generator class="identity"/></id>
+      
+      <many-to-one name="need" class="Need" column="need_id"/>
+      
+      <many-to-one name="need_receiver" class="BaseCustomer" column="need_receiver"/>
+   </class>
+   
+   <sql-query name="findByNeed_id_pub_rec_need_query">
+          <return alias="prn" class="Pub_rec_need"/>
+                                  
+          select prn.*
+          from pub_rec_need prn
+          where prn.need_id=?
+   </sql-query>
+   
+   <sql-query name="findByNeed_reciever_pub_rec_need_query">
+          <return alias="prn" class="Pub_rec_need"/>
+                                  
+          select prn.*
+          from pub_rec_need prn
+          where prn.need_receiver=?
+   </sql-query>
+   
+</hibernate-mapping>

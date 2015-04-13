@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    
+    <bean id="daoConfigTemplate" abstract="true" lazy-init="true">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- 配置Dao层组件  -->
+    <bean id="adminDao" class="com.scuthnweb.dao.impl.AdminDaoImpl" parent="daoConfigTemplate"/>
+    <bean id="customerDao" class="com.scuthnweb.dao.impl.CustomerDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="event_summaryDao" class="com.scuthnweb.dao.impl.Event_summaryDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="eventDao" class="com.scuthnweb.dao.impl.EventDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="invite_codeDao" class="com.scuthnweb.dao.impl.Invite_codeDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="messageDao" class="com.scuthnweb.dao.impl.MessageDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="needDao" class="com.scuthnweb.dao.impl.NeedDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="noteDao" class="com.scuthnweb.dao.impl.NoteDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="pub_rec_needDao" class="com.scuthnweb.dao.impl.Pub_rec_needDaoImpl" parent="daoConfigTemplate"/> 
+    <bean id="share_linkDao" class="com.scuthnweb.dao.impl.Share_linkDaoImpl" parent="daoConfigTemplate"/>         
+</beans>

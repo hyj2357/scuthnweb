@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Note" table="note">
+      <id name="note_id" type="int"><generator class="identity"/></id>
+      <property name="note_name" type="string" length="20"/>
+      <property name="note_type" type="int" length="2"/>
+      <property name="note_content" type="string" length="8000"/>
+      <property name="note_state" type="int" length="1"/>    
+                    
+      <many-to-one name="note_publisher" class="Admin" column="note_publisher"/>
+      
+    </class>
+    <sql-query name="findAllNote_note_query_state">
+          <return-scalar column="note_id" type="int"/>
+          <return-scalar column="note_name" type="string"/>    
+          <return-scalar column="note_type" type="int"/>    
+                          
+          select nt.note_id,nt.note_name,nt.note_type
+          from note nt
+          where nt.note_state=?
+   </sql-query>
+   
+   <sql-query name="findAllNote_note_query">
+          <return-scalar column="note_id" type="int"/>
+          <return-scalar column="note_name" type="string"/>    
+          <return-scalar column="note_type" type="int"/>    
+                          
+          select nt.note_id,nt.note_name,nt.note_type
+          from note nt
+   </sql-query>
+   
+   <sql-query name="findByNotePublisher_note_query">
+          <return-scalar column="note_id" type="int"/>
+          <return-scalar column="note_name" type="string"/>    
+          <return-scalar column="note_type" type="int"/>    
+                          
+          select nt.note_id,nt.note_name,nt.note_type
+          from note nt
+          where nt.note_publisher=?
+   </sql-query>
+   
+   
+</hibernate-mapping>

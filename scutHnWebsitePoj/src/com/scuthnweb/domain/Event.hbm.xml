@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--上面四行对所有的hibernate映射文件都相同 -->
+
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.scuthnweb.domain">
+   <class name="Event" table="event">
+      <id name="event_id" type="int" length="10"><generator class="identity"/></id>
+      <property name="event_name" type="string" length="50"/>
+      <property name="event_intro" type="string" length="8000"/>
+      <property name="event_time" type="date"/>   
+      <property name="event_endtime" type="date"/>
+      <property name="event_maxPeople" type="int" length="3"/>
+      <property name="event_state" type="int" length="1"/> 
+        
+      <many-to-one name="event_publisher" class="Admin" column="event_publisher"/>
+      
+      <set name="event_summary" inverse="true" cascade="all">
+            <key column="event_id"/>
+            <one-to-many class="Event_summary"/>
+      </set> 
+          
+   </class>
+  
+   <sql-query name="findAllEvents_event_query">
+       <return-scalar column="event_id" type="int"/>
+       <return-scalar column="event_name" type="string"/>       
+       select evt.event_id,evt.event_name
+       from Event evt
+   </sql-query>
+   
+   <sql-query name="findAllEvents_event_query_state">
+       <return-scalar column="event_id" type="int"/>
+       <return-scalar column="event_name" type="string"/>       
+       select evt.event_id,evt.event_name
+       from Event evt   
+       where evt.event_state=?;
+   </sql-query>   
+   
+   <sql-query name="findByEvent_publisher_event_query">
+       <return-scalar column="event_id" type="int"/>
+       <return-scalar column="event_name" type="string"/>     
+       <return-scalar column="event_state" type="int"/>              
+       select evt.event_id,evt.event_name,event_state
+       from Event evt   
+       where evt.event_publisher=?;
+   </sql-query>   
+   
+</hibernate-mapping>
