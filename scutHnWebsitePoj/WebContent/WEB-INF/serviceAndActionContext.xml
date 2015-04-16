@@ -52,59 +52,37 @@
 	<!-- 配置action -->
 	
 <!--  actModule -->
-	
-	<bean id="checkAct" class="com.scuthnweb.action.actmodule.CheckActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="checkUserInfo" class="com.scuthnweb.action.actmodule.CheckUserInfoAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="checkAllAct" class="com.scuthnweb.action.actmodule.CheckAllActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="checkPublish" class="com.scuthnweb.action.actmodule.CheckPublishAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="checkTakePartIn" class="com.scuthnweb.action.actmodule.CheckTakePartInAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="checkTakePartInUserInfo" class="com.scuthnweb.action.actmodule.CheckTakePartInUserInfoAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="exitAct" class="com.scuthnweb.action.actmodule.ExitActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>
-	
-	<bean id="offLineAct" class="com.scuthnweb.action.actmodule.OffLineActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>	
-	
-	<bean id="onLineAct" class="com.scuthnweb.action.actmodule.OnLineActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>	
-	
-	<bean id="createAct" class="com.scuthnweb.action.actmodule.CreateActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>	
-	
-	<bean id="deleteAct" class="com.scuthnweb.action.actmodule.DeleteActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>	
-	
-	<bean id="modifyAct" class="com.scuthnweb.action.actmodule.ModifyActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>	
-	
-	<bean id="takePartInAct" class="com.scuthnweb.action.actmodule.TakePartInActAction" scope="prototype">
-       <property name="actModule" ref="actModule"/>
-	</bean>	
-	
+    <!-- 配置 actModule 的 action 配置模板 -->
+	<bean id="actModuleTemplate" abstract="true" scope="prototype">
+        <property name="actModule" ref="actModule"/>
+    </bean>
+    
+	<bean id="checkAct" class="com.scuthnweb.action.actmodule.CheckActAction"  parent="actModuleTemplate"/>
+    	
+	<bean id="checkUserInfo" class="com.scuthnweb.action.actmodule.CheckUserInfoAction"  parent="actModuleTemplate"/>
+    	
+	<bean id="checkAllAct" class="com.scuthnweb.action.actmodule.CheckAllActAction"  parent="actModuleTemplate"/>
+      
+	<bean id="checkPublish" class="com.scuthnweb.action.actmodule.CheckPublishAction"  parent="actModuleTemplate"/>
+    
+	<bean id="checkTakePartIn" class="com.scuthnweb.action.actmodule.CheckTakePartInAction"  parent="actModuleTemplate"/>
+    
+	<bean id="checkTakePartInUserInfo" class="com.scuthnweb.action.actmodule.CheckTakePartInUserInfoAction"  parent="actModuleTemplate"/>
+    
+	<bean id="exitAct" class="com.scuthnweb.action.actmodule.ExitActAction"  parent="actModuleTemplate"/>
+    
+	<bean id="offLineAct" class="com.scuthnweb.action.actmodule.OffLineActAction"  parent="actModuleTemplate"/>
+    
+	<bean id="onLineAct" class="com.scuthnweb.action.actmodule.OnLineActAction"  parent="actModuleTemplate"/>
+    
+	<bean id="createAct" class="com.scuthnweb.action.actmodule.CreateActAction"  parent="actModuleTemplate"/>
+    
+	<bean id="deleteAct" class="com.scuthnweb.action.actmodule.DeleteActAction"  parent="actModuleTemplate"/>
+    
+	<bean id="modifyAct" class="com.scuthnweb.action.actmodule.ModifyActAction"  parent="actModuleTemplate"/>
+    
+	<bean id="takePartInAct" class="com.scuthnweb.action.actmodule.TakePartInActAction"  parent="actModuleTemplate"/>
+    
 <!--  end-actModule -->
 	
     <bean id="addAdmin_testAction" class="com.scuthnweb.action.adminadmodule.AddAdmin_testAction" scope="prototype">

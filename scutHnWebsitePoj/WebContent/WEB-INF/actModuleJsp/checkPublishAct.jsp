@@ -17,6 +17,7 @@
         	  out.println(key+":"+map.get(key)+"<br/>");                  
           }
          %>
+         
          <s:debug/>
         <s:property value="tip"/>
     </body>

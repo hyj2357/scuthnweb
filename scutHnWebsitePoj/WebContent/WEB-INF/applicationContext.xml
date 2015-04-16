@@ -53,6 +53,10 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<!-- 将SQL脚本进行格式化后再输出 -->
 				<prop key="hibernate.format_sql">true</prop>
+				<!-- 开启二级缓存 -->
+			    <prop key="hibernate.cache.use_second_level_cache">true</prop>
+			    <!-- 设置二级缓存的提供者 -->
+			    <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>			
 			</props>
 		</property>
 	</bean>	    
