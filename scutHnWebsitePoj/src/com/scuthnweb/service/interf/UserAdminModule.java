@@ -16,7 +16,7 @@ public interface UserAdminModule {
     * @param customer_email
     * @return boolean
     */
-	public boolean   userFindPassWord( String customer_name, String customer_email );
+	public boolean   userFindPassword( int customer_id, String customer_email );
 	
 	
 	/**
@@ -47,7 +47,7 @@ public interface UserAdminModule {
 	 * @return Customer
 	 * @throws SQLException
 	 */
-	public BaseCustomer  userIDResgist( String	 customer_name,String   customer_password,String   invite_code_Content,
+	public BaseCustomer  userIDResgist( String	 customer_name,String   customer_password,
 	                                    int   customer_sex,String   customer_grade,String   customer_major,
 	                                    int   customer_phone,int   customer_qq,String   customer_email,
 	                                    String   customer_room);	
@@ -72,7 +72,7 @@ public interface UserAdminModule {
 	 * @param customer_room
 	 * @return boolean
 	 */
-	public boolean  userInfoModify( int    customer_id,int	   customer_sex,String customer_grade,
+	public boolean  userInfoModify( Customer cs,int	   customer_sex,String customer_grade,
 	                                String customer_major,int    customer_phone,int    customer_qq,
 	                                String customer_email,String customer_room);
 	 

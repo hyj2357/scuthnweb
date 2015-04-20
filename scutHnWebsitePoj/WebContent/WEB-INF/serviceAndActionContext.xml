@@ -3,7 +3,10 @@
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-    	  
+    
+	<!-- 使用静态工厂方法实例化 ActionContext -->
+	<bean id="actionContext" class="com.opensymphony.xwork2.ActionContext" factory-method="getContext"/>
+	  	  
     <!-- 配置业务逻辑层组件  -->
 	<bean id="actModule" class="com.scuthnweb.service.impl.ActModuleImpl">
 	   <property name="customerDao" ref="customerDao"/>
@@ -42,11 +45,13 @@
 	<bean id="resLinkModule" class="com.scuthnweb.service.impl.ResLinkModuleImpl">
 	   <property name="messageDao" ref="messageDao"/>
 	   <property name="share_linkDao" ref="share_linkDao"/>	
+	   <property name="adminDao" ref="adminDao"/>	   	
 	</bean>
 	
 	<bean id="userAdminModule" class="com.scuthnweb.service.impl.UserAdminModuleImpl">
 	   <property name="customerDao" ref="customerDao"/>
-	   <property name="messageDao" ref="messageDao"/>	
+	   <property name="messageDao" ref="messageDao"/>
+	   <property name="adminDao" ref="adminDao"/>	   	
 	</bean>
 	
 	<!-- 配置action -->
@@ -100,5 +105,13 @@
 	<bean id="setName" class="com.scuthnweb.action.adminadmodule.SetNameAction" scope="prototype">
        <property name="adminAdModule" ref="adminAdModule"/>
 	</bean>	
-	     
+	
+<!-- adminUserModule -->
+    <!-- 配置 adminUserModule 的 action 配置模板 -->
+	<bean id="adminUserModuleTemplate" abstract="true" scope="prototype">
+        <property name="adminUserModule" ref="adminUserModule"/>
+    </bean>
+    
+<!-- end adminUserModule -->
+		     
 </beans>

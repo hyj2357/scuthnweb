@@ -101,4 +101,11 @@ public interface CustomerDao {
      * @param cs
      */
     public void deleteCustomer(Customer cs);
+    
+    /**
+     * Jun:通过用户姓名查询用户Id
+     * @param name
+     * @return
+     */
+    public List<Object[]> findIDByName(String name);
 }

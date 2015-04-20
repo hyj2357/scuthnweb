@@ -39,7 +39,7 @@ public class AdminUserModuleImpl implements AdminUserModule{
 	}
 
 	@Override
-	public boolean op_RegInfo(Admin message_publisher, Customer cs, boolean accept) {
+	public boolean op_regInfo(Admin message_publisher, Customer cs, boolean accept) {
 		//审核未通过则自动删除未通过账号
 		if(accept){
 			cs.setCustomer_state(0);

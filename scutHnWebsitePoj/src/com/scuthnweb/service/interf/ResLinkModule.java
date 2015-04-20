@@ -16,19 +16,19 @@ public interface ResLinkModule {
 	 * @param share_link_id
 	 * @return
 	 */
-	public boolean delLink( int share_link_id , BaseCustomer share_link_publisher);
+	public boolean delLink( Share_link sl , BaseCustomer share_link_publisher);
 	
 	
 	/**
 	 * Jun:审核链接
 	 * @validate  no
 	 * @intercept yes
-	 * @param share_link_id
+	 * @param sl
 	 * @param share_link_publisher
 	 * @param accept
 	 * @return
 	 */
-	public boolean op_Link( int share_link_id, Admin admin, BaseCustomer share_link_publisher,boolean accept);
+	public boolean op_link( Share_link sl, Admin admin, boolean accept);
 	
 	
 	/**
@@ -41,7 +41,7 @@ public interface ResLinkModule {
 	 * @param share_link_Content
 	 * @return
 	 */
-	public boolean updateLink( int  share_link_id,BaseCustomer share_link_publisher,String share_link_name, String share_link_content);
+	public boolean updateLink(Share_link sl,BaseCustomer share_link_publisher,String share_link_name, String share_link_content);
 	
 	
 	/**
@@ -77,7 +77,7 @@ public interface ResLinkModule {
 	
 	
 	/**
-	 * Jun:管理员审核所有未通过的链接
+	 * Jun:管理员查看所有待审核的链接
 	 * @validate  no
 	 * @intercept yes
 	 * @return

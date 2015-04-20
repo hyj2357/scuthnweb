@@ -93,6 +93,14 @@ public class CustomerDaoImpl  extends HibernateDaoSupport implements CustomerDao
 	@Override
 	public void deleteCustomer(Customer cs) {
 		this.getHibernateTemplate().delete(cs);
+	}
+
+
+	@Override
+	public List<Object[]> findIDByName(String name) {
+		//使用命名查询 findIDByName_customer_query
+		return this.getSession().getNamedQuery("findIDByName_customer_query")
+		                        .setString(0, name).list();
 	};
 	
 	

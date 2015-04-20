@@ -29,7 +29,7 @@ public interface AdminUserModule {
 	 * @param accept
 	 * @return
 	 */
-	public boolean op_RegInfo( Admin message_publisher,Customer cs, boolean accept);
+	public boolean op_regInfo( Admin message_publisher,Customer cs, boolean accept);
     
 	/**
 	 * Jun: 根据输入条件查看所有符合条件的用户信息（可选择输入条件，未输入的默认为全选）

@@ -103,11 +103,10 @@
           from customer cs 
    </sql-query>   
    
-   <sql-query name="findAllCustomer_customer_query_authority">
+   <sql-query name="findIDByName_customer_query">
           <return-scalar column="id" type="int"/>
-          <return-scalar column="name" type="string"/>          
-          select cs.id,cs.name
+          select cs.id
           from customer cs 
-          where cs.customer_state=?
+          where cs.name=?
    </sql-query>      
 </hibernate-mapping>
