@@ -22,11 +22,11 @@ public class BaseCustomerAuthority extends AbstractInterceptor implements Result
 		if(bs==null){
 			bs = (BaseCustomer) session.getAttribute("customer");	
 		    if(((Customer)bs).getCustomer_state()==1)
-		    	return CUSTOMERAUTHORITY;
+		    	return CUSTOMER_AUTHORITY_ERROR;
 		}
 		else{
 			if(((Admin)bs).getAdmin_state()==1)
-			   return ADMINAUTHORITY;
+			   return ADMIN_AUTHORITY_ERROR;
 		}
 		return invocation.invoke();
 	}	 

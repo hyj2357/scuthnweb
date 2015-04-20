@@ -16,8 +16,8 @@ public class AdminInterceptor extends AbstractInterceptor implements ResultType{
 		HttpSession session = request.getSession();
 		//如果当前没有管理员账号在登录状态
 		//则返回管理员未登录错误结果
-		if(session.getAttribute("admin")==null&&session.getAttribute("customer")==null)
-			return ADMINERROR;
+		if(session.getAttribute("admin")==null)
+			return ADMIN_ERROR;
 		return invocation.invoke();
 	}
 

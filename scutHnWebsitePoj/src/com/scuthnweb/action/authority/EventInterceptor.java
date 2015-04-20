@@ -15,7 +15,7 @@ public class EventInterceptor extends AbstractInterceptor implements ResultType{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();		
 		if(session.getAttribute("event")==null)
-			return EVENTERROR;
+			return EVENT_ERROR;
 		return invocation.invoke();
 	}
 	

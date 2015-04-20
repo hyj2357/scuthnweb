@@ -18,7 +18,7 @@ public class BaseCustomerInterceptor extends AbstractInterceptor implements Resu
 		//如果当前没有管理员或者用户的账号在登录状态
 		//则返回未登录错误结果
 		if(session.getAttribute("admin")==null&&session.getAttribute("customer")==null)
-			return BSERROR;
+			return BS_ERROR;
 		return invocation.invoke();
 	}
 
