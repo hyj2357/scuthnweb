@@ -48,6 +48,14 @@ public interface Pub_rec_needDao {
 	
 	/**
 	 * 
+	 * @param need_id
+	 * @param need_receiver
+	 * @return
+	 */
+	public  Pub_rec_need findByNeed_idAndNeed_receiver(int need_id,int need_receiver);
+	
+	/**
+	 * 
 	 * @param prn
 	 */
 	public  void deletePub_rec_need( Pub_rec_need prn );

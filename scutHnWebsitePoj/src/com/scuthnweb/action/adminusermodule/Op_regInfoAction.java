@@ -21,4 +21,22 @@ public class Op_regInfoAction extends ActionSupport{
 	    	 return SUCCESS;
 	    else return ERROR;
 	}
+
+	public AdminUserModule getAdminUserModule() {
+		return adminUserModule;
+	}
+
+	public void setAdminUserModule(AdminUserModule adminUserModule) {
+		this.adminUserModule = adminUserModule;
+	}
+
+	public int getAccept() {
+		return accept;
+	}
+
+	public void setAccept(int accept) {
+		this.accept = accept;
+	}
+	
+	
 }

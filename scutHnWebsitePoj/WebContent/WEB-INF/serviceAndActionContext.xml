@@ -112,6 +112,65 @@
         <property name="adminUserModule" ref="adminUserModule"/>
     </bean>
     
+    <bean id="checkAllRegInfo" class="com.scuthnweb.action.adminusermodule.CheckAllRegInfoAction"  parent="adminUserModuleTemplate"/>
+    
+    <bean id="checkRegInfo" class="com.scuthnweb.action.adminusermodule.CheckRegInfoAction"  parent="adminUserModuleTemplate"/>
+    
+    <bean id="logoutUserID" class="com.scuthnweb.action.adminusermodule.LogoutUserIDAction"  parent="adminUserModuleTemplate"/>
+    
+    <bean id="modifyUserInfo" class="com.scuthnweb.action.adminusermodule.ModifyUserInfoAction"  parent="adminUserModuleTemplate"/>
+    
+    <bean id="op_regInfo" class="com.scuthnweb.action.adminusermodule.Op_regInfoAction"  parent="adminUserModuleTemplate"/>
+    
 <!-- end adminUserModule -->
-		     
+
+
+<!--  messageModule -->
+    <!-- 配置 messageModule 的 action 配置模板 -->
+	<bean id="messageModuleTemplate" abstract="true" scope="prototype">
+        <property name="messageModule" ref="messageModule"/>
+        <property name="ctx" ref="actionContext"/>        
+    </bean>
+    
+    <bean id="checkMessage" class="com.scuthnweb.action.messagemodule.CheckMessageAction"  parent="messageModuleTemplate"/>
+    
+    <bean id="checkPublisherMessages" class="com.scuthnweb.action.messagemodule.CheckPublisherMessagesAction"  parent="messageModuleTemplate"/>
+    
+    <bean id="checkReceiverMessages" class="com.scuthnweb.action.messagemodule.CheckReceiverMessagesAction"  parent="messageModuleTemplate"/>
+    
+<!--  end-messageModule -->
+
+<!--  resLinkModule -->
+    <!-- 配置 resLinkModule 的 action 配置模板 -->
+	<bean id="resLinkModuleTemplate" abstract="true" scope="prototype">
+        <property name="resLinkModule" ref="resLinkModule"/>
+        <property name="ctx" ref="actionContext"/>        
+    </bean>
+    
+    <bean id="checkAllResLink" class="com.scuthnweb.action.reslinkmodule.CheckAllResLinkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="checkLink" class="com.scuthnweb.action.reslinkmodule.CheckLinkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="checkUploadLink" class="com.scuthnweb.action.reslinkmodule.CheckUploadLinkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="delLink" class="com.scuthnweb.action.reslinkmodule.DelLinkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="op_link" class="com.scuthnweb.action.reslinkmodule.Op_linkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="updateLink" class="com.scuthnweb.action.reslinkmodule.UpdateLinkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="uploadLink" class="com.scuthnweb.action.reslinkmodule.UploadLinkAction"  parent="resLinkModuleTemplate"/>
+<!--  end-resLinkModule -->    
+	
+	
+<!--  userAdminModule -->
+    <!-- 配置 userAdminModule 的 action 配置模板 -->
+	<bean id="userAdminModuleTemplate" abstract="true" scope="prototype">
+        <property name="userAdminModule" ref="userAdminModule"/>
+    </bean>
+    
+    <bean id="userFindID" class="com.scuthnweb.action.useradminmodule.UserFindIDAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userFindPassword" class="com.scuthnweb.action.useradminmodule.UserFindPasswordAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userIDLogin" class="com.scuthnweb.action.useradminmodule.UserIDLoginAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userIDLogOut" class="com.scuthnweb.action.useradminmodule.UserIDLogOutAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userIDRegist" class="com.scuthnweb.action.useradminmodule.UserIDRegistAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userInfoCheck" class="com.scuthnweb.action.useradminmodule.UserInfoCheckAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userInfoModify" class="com.scuthnweb.action.useradminmodule.UserInfoModifyAction"  parent="userAdminModuleTemplate"/>
+    <bean id="userPasswordChange" class="com.scuthnweb.action.useradminmodule.UserPasswordChangeAction"  parent="userAdminModuleTemplate"/>   
+<!--  end-userAdminModule -->
+    	     
 </beans>

@@ -31,4 +31,13 @@
           where prn.need_receiver=?
    </sql-query>
    
+   
+   <sql-query name="findByNeed_idAndNeed_receiver_pub_rec_need_query">
+          <return alias="prn" class="Pub_rec_need"/>
+                                  
+          select prn.*
+          from pub_rec_need prn
+          where prn.need_id=? and prn.need_receiver=?
+   </sql-query>
+   
 </hibernate-mapping>

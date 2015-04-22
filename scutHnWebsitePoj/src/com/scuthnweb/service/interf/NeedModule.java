@@ -62,7 +62,7 @@ public interface NeedModule {
 	 * @param need_reciever
 	 * @return
 	 */
-	public Map<String,String> checkACNeed( BaseCustomer need_reciever );
+	public Map<String,String> checkAcNeed( BaseCustomer need_reciever );
 	
 	
 	/**
@@ -75,7 +75,13 @@ public interface NeedModule {
 	 */
 	public Map<String,String> checkAcNeedUserInfo( Need need, BaseCustomer need_publisher);
 	
-	
+	/**
+	 * Jun:查看用户信息
+	 * @param id
+	 * @return
+	 */
+	public BaseCustomer checkUserInfo(int id);
+
 	/**
 	 * Jun: 删除需求
 	 * @validate  no
@@ -102,12 +108,12 @@ public interface NeedModule {
 	 * Jun: 修改已发布的需求
 	 * @validate yes
 	 * @intercept yes
-	 * @param need_id
+	 * @param need
 	 * @param need_name
 	 * @param need_content
 	 * @return
 	 */
-	public boolean modifyNeed( int need_id, String need_name, String need_content);
+	public boolean modifyNeed( Need need_id, BaseCustomer cs,String need_name, String need_content);
 	
 	
 	/**

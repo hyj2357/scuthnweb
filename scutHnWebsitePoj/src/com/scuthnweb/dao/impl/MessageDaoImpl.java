@@ -20,7 +20,8 @@ public class MessageDaoImpl  extends HibernateDaoSupport implements MessageDao{
 	@Override
 	public Message findByMessage_ID(int message_id) {
 		Message ms = (Message)this.getHibernateTemplate().get(Message.class, message_id);
-	    if(ms.getMessage_state()==0) {
+	    //如果当前消息处于未读状态
+		if(ms.getMessage_state()==0) {
 	    	//将未读标志设置为已读
 	    	ms.setMessage_state(1);
 	    	this.getHibernateTemplate().update(ms);

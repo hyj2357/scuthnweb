@@ -27,7 +27,7 @@
           <return-scalar column="need_name" type="string"/>    
                           
           select nd.need_id,nd.need_name,
-          from need nt
+          from need nd
           where nd.need_state=?
    </sql-query>
    
@@ -36,7 +36,7 @@
           <return-scalar column="need_name" type="string"/>    
                           
           select nd.need_id,nd.need_name,
-          from need nt
+          from need nd
    </sql-query>
    
     <sql-query name="findByNeed_publisher_need_query">

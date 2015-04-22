@@ -49,4 +49,15 @@ public class Pub_rec_needDaoImpl  extends HibernateDaoSupport implements Pub_rec
 		this.getHibernateTemplate().delete(prn);			
 	}
 
+
+	@Override
+	public Pub_rec_need findByNeed_idAndNeed_receiver(int need_id, int need_receiver) {
+		//使用命名查询 findByNeed_idAndNeed_receiver_pub_rec_need_query
+		List ls = this.getSession().getNamedQuery("findByNeed_idAndNeed_receiver_pub_rec_need_query")
+				                .setInteger(0, need_id)
+				                .setInteger(1, need_receiver)
+				                .list();
+		return ls!=null?(Pub_rec_need)ls.get(0):null;
+	}
+
 }
