@@ -62,30 +62,18 @@
         <property name="actModule" ref="actModule"/>
     </bean>
     
-	<bean id="checkAct" class="com.scuthnweb.action.actmodule.CheckActAction"  parent="actModuleTemplate"/>
-    	
+	<bean id="checkAct" class="com.scuthnweb.action.actmodule.CheckActAction"  parent="actModuleTemplate"/>    	
 	<bean id="checkUserInfo" class="com.scuthnweb.action.actmodule.CheckUserInfoAction"  parent="actModuleTemplate"/>
-    	
 	<bean id="checkAllAct" class="com.scuthnweb.action.actmodule.CheckAllActAction"  parent="actModuleTemplate"/>
-      
 	<bean id="checkPublish" class="com.scuthnweb.action.actmodule.CheckPublishAction"  parent="actModuleTemplate"/>
-    
 	<bean id="checkTakePartIn" class="com.scuthnweb.action.actmodule.CheckTakePartInAction"  parent="actModuleTemplate"/>
-    
 	<bean id="checkTakePartInUserInfo" class="com.scuthnweb.action.actmodule.CheckTakePartInUserInfoAction"  parent="actModuleTemplate"/>
-    
 	<bean id="exitAct" class="com.scuthnweb.action.actmodule.ExitActAction"  parent="actModuleTemplate"/>
-    
 	<bean id="offLineAct" class="com.scuthnweb.action.actmodule.OffLineActAction"  parent="actModuleTemplate"/>
-    
 	<bean id="onLineAct" class="com.scuthnweb.action.actmodule.OnLineActAction"  parent="actModuleTemplate"/>
-    
 	<bean id="createAct" class="com.scuthnweb.action.actmodule.CreateActAction"  parent="actModuleTemplate"/>
-    
-	<bean id="deleteAct" class="com.scuthnweb.action.actmodule.DeleteActAction"  parent="actModuleTemplate"/>
-    
-	<bean id="modifyAct" class="com.scuthnweb.action.actmodule.ModifyActAction"  parent="actModuleTemplate"/>
-    
+	<bean id="deleteAct" class="com.scuthnweb.action.actmodule.DeleteActAction"  parent="actModuleTemplate"/>   
+	<bean id="modifyAct" class="com.scuthnweb.action.actmodule.ModifyActAction"  parent="actModuleTemplate"/>    
 	<bean id="takePartInAct" class="com.scuthnweb.action.actmodule.TakePartInActAction"  parent="actModuleTemplate"/>
     
 <!--  end-actModule -->
@@ -113,15 +101,10 @@
     </bean>
     
     <bean id="checkAllRegInfo" class="com.scuthnweb.action.adminusermodule.CheckAllRegInfoAction"  parent="adminUserModuleTemplate"/>
-    
     <bean id="checkRegInfo" class="com.scuthnweb.action.adminusermodule.CheckRegInfoAction"  parent="adminUserModuleTemplate"/>
-    
     <bean id="logoutUserID" class="com.scuthnweb.action.adminusermodule.LogoutUserIDAction"  parent="adminUserModuleTemplate"/>
-    
-    <bean id="modifyUserInfo" class="com.scuthnweb.action.adminusermodule.ModifyUserInfoAction"  parent="adminUserModuleTemplate"/>
-    
-    <bean id="op_regInfo" class="com.scuthnweb.action.adminusermodule.Op_regInfoAction"  parent="adminUserModuleTemplate"/>
-    
+    <bean id="modifyUserInfo" class="com.scuthnweb.action.adminusermodule.ModifyUserInfoAction"  parent="adminUserModuleTemplate"/>    
+    <bean id="op_regInfo" class="com.scuthnweb.action.adminusermodule.Op_regInfoAction"  parent="adminUserModuleTemplate"/>   
 <!-- end adminUserModule -->
 
 
@@ -133,13 +116,32 @@
     </bean>
     
     <bean id="checkMessage" class="com.scuthnweb.action.messagemodule.CheckMessageAction"  parent="messageModuleTemplate"/>
-    
     <bean id="checkPublisherMessages" class="com.scuthnweb.action.messagemodule.CheckPublisherMessagesAction"  parent="messageModuleTemplate"/>
-    
-    <bean id="checkReceiverMessages" class="com.scuthnweb.action.messagemodule.CheckReceiverMessagesAction"  parent="messageModuleTemplate"/>
-    
+    <bean id="checkReceiverMessages" class="com.scuthnweb.action.messagemodule.CheckReceiverMessagesAction"  parent="messageModuleTemplate"/>    
 <!--  end-messageModule -->
 
+<!--  needModule -->
+    <!-- 配置 needModule 的 action 配置模板 -->
+	<bean id="needModuleTemplate" abstract="true" scope="prototype">
+        <property name="needModule" ref="needModule"/>
+        <property name="ctx" ref="actionContext"/>        
+    </bean>
+    
+    <bean id="acceptNeed" class="com.scuthnweb.action.needmodule.AcceptNeedAction"  parent="needModuleTemplate"/>
+    <bean id="cancelAcNeed" class="com.scuthnweb.action.needmodule.CancelAcNeedAction"  parent="needModuleTemplate"/>
+    <bean id="checkAcNeed" class="com.scuthnweb.action.needmodule.CheckAcNeedAction"  parent="needModuleTemplate"/>
+    <bean id="checkAcNeedUserInfo" class="com.scuthnweb.action.needmodule.CheckAcNeedUserInfoAction"  parent="needModuleTemplate"/>
+    <bean id="checkAllNeed" class="com.scuthnweb.action.needmodule.CheckAllNeedAction"  parent="needModuleTemplate"/>
+    <bean id="checkNeed" class="com.scuthnweb.action.needmodule.CheckNeedAction"  parent="needModuleTemplate"/>
+    <bean id="checkPostNeed" class="com.scuthnweb.action.needmodule.CheckPostNeedAction"  parent="needModuleTemplate"/>
+    <bean id="checkUserInfo_needmodule" class="com.scuthnweb.action.needmodule.CheckUserInfoAction"  parent="needModuleTemplate"/>
+    <bean id="delNeed" class="com.scuthnweb.action.needmodule.DelNeedAction"  parent="needModuleTemplate"/>
+    <bean id="modifyNeed" class="com.scuthnweb.action.needmodule.ModifyNeedAction"  parent="needModuleTemplate"/>
+    <bean id="postNeed" class="com.scuthnweb.action.needmodule.PostNeedAction"  parent="needModuleTemplate"/>
+    <bean id="setNeedSucc" class="com.scuthnweb.action.needmodule.SetNeedSuccAction"  parent="needModuleTemplate"/>
+<!-- end needModule -->
+
+    
 <!--  resLinkModule -->
     <!-- 配置 resLinkModule 的 action 配置模板 -->
 	<bean id="resLinkModuleTemplate" abstract="true" scope="prototype">

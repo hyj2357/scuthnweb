@@ -21,4 +21,20 @@ public class CheckAcNeedUserInfoAction extends ActionSupport{
     	return SUCCESS;
     }
 
+	public NeedModule getNeedModule() {
+		return needModule;
+	}
+
+	public void setNeedModule(NeedModule needModule) {
+		this.needModule = needModule;
+	}
+
+	public ActionContext getCtx() {
+		return ctx;
+	}
+
+	public void setCtx(ActionContext ctx) {
+		this.ctx = ctx;
+	}
+
 }
