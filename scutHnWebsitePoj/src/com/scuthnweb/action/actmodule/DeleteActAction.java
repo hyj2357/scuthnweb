@@ -18,6 +18,9 @@ public class DeleteActAction extends ActionSupport{
     		return ERROR;
     	if(!this.actModule.deleteAct(evt, ad))
     		return ERROR;
+    	//删除成功
+    	//由session中移除活动
+    	ctx.getSession().remove("act");
     	return SUCCESS;
     }
 

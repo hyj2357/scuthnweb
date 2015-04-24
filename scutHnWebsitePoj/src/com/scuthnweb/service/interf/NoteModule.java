@@ -37,7 +37,7 @@ public interface NoteModule{
 	 * @param note_publisher
 	 * @return
 	 */
-	public  boolean    modifyNote( int note_id, String note_name, int note_type, String note_content, Admin note_publisher);
+	public  boolean    modifyNote( Note note, String note_name, int note_type, String note_content, Admin note_publisher);
 	
 	
 	/**
@@ -47,7 +47,7 @@ public interface NoteModule{
 	 * @param note_id
 	 * @return
 	 */
-	public  boolean    offlineNote( int note_id, Admin note_publisher);
+	public  boolean    offlineNote( Note note, Admin note_publisher);
 	
 	
 	/**
@@ -71,5 +71,13 @@ public interface NoteModule{
 	 * @param note_publisher
 	 * @return
 	 */
-    public  boolean  deleteNote( int note_id, Admin note_publisher);
+    public  boolean  deleteNote( Note note, Admin note_publisher);
+    
+    
+    /**
+     * Jun:查看单条信息
+     * @param note_id
+     * @return
+     */
+    public  Note checkNote(int note_id);
 }

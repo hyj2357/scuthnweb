@@ -16,8 +16,12 @@ public class DelNeedAction extends ActionSupport{
     	BaseCustomer bs = (BaseCustomer)ctx.getSession().get("customer");
     	if(bs==null)
     		bs = (BaseCustomer)ctx.getSession().get("admin");
-    	if(this.needModule.delNeed(need, bs))
+    	if(this.needModule.delNeed(need, bs)){
+    		//删除成功
+        	//由session中移除need
+        	ctx.getSession().remove("need");        	
     		return SUCCESS;
+    	}
     	return ERROR;
     }
 

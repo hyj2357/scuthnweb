@@ -15,8 +15,12 @@ public class DelLinkAction extends ActionSupport{
     	BaseCustomer cs = (BaseCustomer)ctx.getSession().get("customer");
     	if(cs==null)
     		cs = (BaseCustomer)ctx.getSession().get("admin");
-    	if(this.resLinkModule.delLink((Share_link)ctx.getSession().get("resLink"), cs))
-    	    return SUCCESS;
+    	if(this.resLinkModule.delLink((Share_link)ctx.getSession().get("resLink"), cs)){    	    
+    		//删除成功
+        	//由session中移除resLink
+        	ctx.getSession().remove("resLink");
+        	return SUCCESS;
+    	}
     	return ERROR;
     }
 
