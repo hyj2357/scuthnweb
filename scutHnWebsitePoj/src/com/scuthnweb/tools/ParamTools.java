@@ -33,4 +33,13 @@ public class ParamTools {
     	
     	return new Long(sum);
     }
+    
+    /**
+     * 随机获取 range 范围内的整型值
+     * @param range
+     * @return
+     */
+    public static int getARandomIntegerInRange(int range){
+    	return ((int)(range*Math.random()));
+    }
 }

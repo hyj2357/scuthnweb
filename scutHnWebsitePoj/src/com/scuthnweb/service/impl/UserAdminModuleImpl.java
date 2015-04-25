@@ -11,6 +11,7 @@ import com.scuthnweb.domain.BaseCustomer;
 import com.scuthnweb.domain.Customer;
 import com.scuthnweb.domain.Message;
 import com.scuthnweb.service.interf.UserAdminModule;
+import com.scuthnweb.tools.ParamTools;
 
 public class UserAdminModuleImpl implements UserAdminModule{
 	private CustomerDao          customerDao;
@@ -43,7 +44,7 @@ public class UserAdminModuleImpl implements UserAdminModule{
 		ms.setMessage_state(0);
 		ms.setMessage_publisher(cs);
 		//由id为 1~10 中随机抽取一名管理员审核新用户信息
-		Admin ad = this.adminDao.findAdminByAdminId((int)(Math.random()*10));
+		Admin ad = this.adminDao.findAdminByAdminId(ParamTools.getARandomIntegerInRange(10));
 		ms.setMessage_receiver(ad);
 		this.messageDao.createMessage(ms);
 		return true;
@@ -80,7 +81,7 @@ public class UserAdminModuleImpl implements UserAdminModule{
 		ms.setMessage_publisher(cs);		
 		ms.setMessage_state(0);		
 		//由id为 1~10 中随机抽取一名管理员审核新用户信息
-		Admin ad = this.adminDao.findAdminByAdminId((int)(Math.random()*10));
+		Admin ad = this.adminDao.findAdminByAdminId(ParamTools.getARandomIntegerInRange(10));
 		ms.setMessage_receiver(ad);
 		
 		this.messageDao.createMessage(ms);

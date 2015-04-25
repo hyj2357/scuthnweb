@@ -12,6 +12,7 @@ import com.scuthnweb.domain.BaseCustomer;
 import com.scuthnweb.domain.Message;
 import com.scuthnweb.domain.Share_link;
 import com.scuthnweb.service.interf.ResLinkModule;
+import com.scuthnweb.tools.ParamTools;
 
 public class ResLinkModuleImpl implements ResLinkModule{
 	private MessageDao         messageDao;
@@ -100,7 +101,7 @@ public class ResLinkModuleImpl implements ResLinkModule{
 		ms.setMessage_content(  "用户发布链接["+ sl.getShare_link_name() +"] ,请审核链接内容;");
 		ms.setMessage_publisher(share_link_publisher);
 		//随机由id:1~10中抽取一个管理员接受消息
-		ms.setMessage_receiver(this.adminDao.findAdminByAdminId((int)( 10*Math.random() ) ));
+		ms.setMessage_receiver(this.adminDao.findAdminByAdminId(ParamTools.getARandomIntegerInRange(10)));
 		//设置消息为未读
 		ms.setMessage_state(0);
 		//推送消息
