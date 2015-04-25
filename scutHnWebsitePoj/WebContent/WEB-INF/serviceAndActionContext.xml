@@ -174,5 +174,20 @@
     <bean id="userInfoModify" class="com.scuthnweb.action.useradminmodule.UserInfoModifyAction"  parent="userAdminModuleTemplate"/>
     <bean id="userPasswordChange" class="com.scuthnweb.action.useradminmodule.UserPasswordChangeAction"  parent="userAdminModuleTemplate"/>   
 <!--  end-userAdminModule -->
-    	     
+
+<!--  noteModule -->
+    <!-- 配置 noteModule 的 action 配置模板 -->
+	<bean id="noteModuleTemplate" abstract="true" scope="prototype">
+        <property name="noteModule" ref="noteModule"/>
+    </bean>
+    
+    <bean id="checkAllNote" class="com.scuthnweb.action.notemodule.CheckAllNoteAction"  parent="noteModuleTemplate"/>
+    <bean id="checkNote" class="com.scuthnweb.action.notemodule.CheckNoteAction"  parent="noteModuleTemplate"/>
+    <bean id="checkPostNote" class="com.scuthnweb.action.notemodule.CheckPostNoteAction"  parent="noteModuleTemplate"/>
+    <bean id="deleteNote" class="com.scuthnweb.action.notemodule.DeleteNoteAction"  parent="noteModuleTemplate"/>
+    <bean id="modifyNote" class="com.scuthnweb.action.notemodule.ModifyNoteAction"  parent="noteModuleTemplate"/>
+    <bean id="offlineNote" class="com.scuthnweb.action.notemodule.OfflineNoteAction"  parent="noteModuleTemplate"/>
+    <bean id="postNote" class="com.scuthnweb.action.notemodule.PostNoteAction"  parent="noteModuleTemplate"/>
+<!--  end noteModule -->
+           	     
 </beans>
