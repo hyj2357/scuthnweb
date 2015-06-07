@@ -6,7 +6,7 @@ public interface ResultType {
                           CUSTOMER_AUTHORITY_ERROR = "customerAuthorityError",
                           BS_ERROR="bsError",
                           EVENT_ERROR="eventError";
-                      	
+                      	  
                       	 
 
 }

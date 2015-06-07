@@ -20,6 +20,8 @@ public class TakePartInActAction extends ActionSupport{
     	}
 		if(!this.actModule.takePartInAct(evt, event_customer))
 			return ERROR;
+		//及时设置
+		ctx.getSession().put("event_take_state", new Integer(0));
 		return SUCCESS;
 	}
 

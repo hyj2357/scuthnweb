@@ -25,6 +25,12 @@
        where sl.share_link_state=?
    </sql-query>
    
+   <sql-query name="findAllShare_share_link_query">
+       <return-scalar column="share_link_id" type="int"/>
+       <return-scalar column="share_link_name" type="string"/>       
+       select sl.share_link_id,sl.share_link_name
+       from share_link sl
+   </sql-query>
    
    <sql-query name="findByShare_link_publisher_share_link_query">
        <return-scalar column="share_link_id" type="int"/>

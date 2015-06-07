@@ -120,7 +120,7 @@ public class ResLinkModuleImpl implements ResLinkModule{
 		if(isAdmin)
 			ls.addAll(this.share_linkDao.findAllShare_link(1));
 		for(Object[] itr:ls){
-			linkMap.put((String)itr[1], "CheckLinkAction?share_link_id="+itr[0]);
+			linkMap.put((String)itr[1], "checkLinkAction?share_link_id="+((Integer)itr[0]).toString());
 		}
 		return linkMap;
 	}
@@ -131,7 +131,7 @@ public class ResLinkModuleImpl implements ResLinkModule{
 		//由id查询用户所发布的资源链接
 		List<Object[]> ls = this.share_linkDao.findByShare_link_publisher(share_link_publisher.getId());
 		for(Object[] itr:ls){
-			linkMap.put((String)itr[1], "CheckLinkAction?share_link_id="+itr[0]);
+			linkMap.put((String)itr[1], "checkLinkAction?share_link_id="+((Integer)itr[0]).toString());
 		}
 		return linkMap;
 	}
@@ -142,7 +142,7 @@ public class ResLinkModuleImpl implements ResLinkModule{
 		//查看所有待审核链接
 		List<Object[]> ls = this.share_linkDao.findAllShare_link(2);
 		for(Object[] itr:ls){
-			linkMap.put((String)itr[1], "CheckLinkAction?share_link_id="+itr[0]);
+			linkMap.put((String)itr[1], "checkLinkAction?share_link_id="+((Integer)itr[0]).toString());
 		}
 		return linkMap;
 	}
@@ -151,5 +151,4 @@ public class ResLinkModuleImpl implements ResLinkModule{
 	public Share_link checkLink(int share_link_id) {
 		return this.share_linkDao.findByShare_link_id(share_link_id);
 	}
-
 }

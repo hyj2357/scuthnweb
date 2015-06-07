@@ -12,6 +12,7 @@ public class CheckNoteAction extends ActionSupport{
 	private int note_id;
     
     public String execute(){
+    	ctx = ActionContext.getContext();
         ctx.getSession().put("note", this.noteModule.checkNote(note_id));
         return SUCCESS;
     }

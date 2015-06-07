@@ -67,8 +67,8 @@
           <property name="customer_email" type="string" length="255"/>
           <property name="customer_grade" type="string" length="4"/>
           <property name="customer_major" type="string" length="20"/>   
-          <property name="customer_phone" type="int" length="11"/>
-          <property name="customer_qq" type="int" length="10"/>
+          <property name="customer_phone" type="string" length="15"/>
+          <property name="customer_qq" type="string" length="20"/>
           <property name="customer_room" type="string" length="10"/>      
           <property name="customer_state" type="int" length="2"/>   
              
@@ -101,6 +101,14 @@
           <return-scalar column="name" type="string"/>          
           select cs.id,cs.name
           from customer cs 
+   </sql-query>   
+   
+   <sql-query name="findAllCustomer_customer_query_authority">
+          <return-scalar column="id" type="int"/>
+          <return-scalar column="name" type="string"/>          
+          select cs.id,cs.name
+          from customer cs 
+          where cs.customer_state=?
    </sql-query>   
    
    <sql-query name="findIDByName_customer_query">

@@ -33,7 +33,7 @@ public class AdminUserModuleImpl implements AdminUserModule{
 		Map csMap = new HashMap<String,String>();
 		List<Object[]> lst = this.customerDao.findAllCustomer(1);
 		for(Object[] itr:lst){
-			csMap.put((String)itr[1], "checkRegInfoAction?id="+(String)itr[0]);
+			csMap.put((String)itr[1], "checkRegInfoAction?id="+((Integer)itr[0]).toString());
 		}
 		return csMap;
 	}
@@ -44,6 +44,7 @@ public class AdminUserModuleImpl implements AdminUserModule{
 		if(accept){
 			cs.setCustomer_state(0);
 			this.customerDao.updateCustomer(cs);
+			
 			Message ms = new Message();
 			ms.setMessage_title("账号审核通过信息");
 			ms.setMessage_content( "您的账号已通过管理员(id:"+message_publisher.getId()+")"
@@ -60,13 +61,6 @@ public class AdminUserModuleImpl implements AdminUserModule{
 	}
 
 	@Override
-	public Map<String, String> checkAllUserInfo(int customer_id, String customer_name, int customer_sex, String customer_grade,
-			                                    String customer_major, int customer_phone, int customer_qq, String customer_email, String customer_room) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Customer checkUserInfo(int customer_id) {
 		return this.customerDao.findCustomerByCustomerID(customer_id);
 	}
@@ -78,7 +72,8 @@ public class AdminUserModuleImpl implements AdminUserModule{
 	}
 
 	@Override
-	public boolean modifyUserInfo(Admin admin, Customer customer,String customer_name, String customer_password, int customer_sex,String customer_grade, String customer_major, int customer_phone,int customer_qq, String customer_email, String customer_room) {
+	public boolean modifyUserInfo(Admin admin, Customer customer,String customer_name, String customer_password, int customer_sex,String customer_grade, String customer_major, String customer_phone,String customer_qq, String customer_email, String customer_room) {
+		customer.setName(customer_name);
 		customer.setCustomer_email(customer_email);
 		customer.setCustomer_grade(customer_grade);
 		customer.setCustomer_major(customer_major);
@@ -87,6 +82,8 @@ public class AdminUserModuleImpl implements AdminUserModule{
 		customer.setCustomer_qq(customer_qq);
 		customer.setCustomer_room(customer_room);
 		customer.setCustomer_sex(customer_sex);
+		//更新数据
+		this.customerDao.updateCustomer(customer);
 		
 		Message ms = new Message();
 		ms.setMessage_title("用户个人信息修改消息");
@@ -98,6 +95,16 @@ public class AdminUserModuleImpl implements AdminUserModule{
 		//推送消息
 		this.messageDao.createMessage(ms);
 		return true;
+	}
+
+	@Override
+	public Map<String, String> checkAllUserInfo() {
+		Map csMap = new HashMap<String,String>();
+		List<Object[]> lst = this.customerDao.findAllCustomer(0);
+		for(Object[] itr:lst){
+			csMap.put((String)itr[1], "checkUserInfoAction_adminUserModule?id="+((Integer)itr[0]).toString());
+		}
+		return csMap;
 	}
 
 }

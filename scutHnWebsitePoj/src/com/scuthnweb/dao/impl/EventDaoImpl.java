@@ -1,9 +1,15 @@
 package com.scuthnweb.dao.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.scuthnweb.dao.interf.EventDao;
@@ -26,9 +32,24 @@ public class EventDaoImpl extends HibernateDaoSupport  implements EventDao{
 	}
 
 	@Override
-	public void updateEvent(Event evt) {
+	public void updateEvent(final Event evt) {
 		 //更新Event对象信息
-	     this.getHibernateTemplate().update(evt);
+	     //this.getHibernateTemplate().update(evt);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session) throws HibernateException,
+					SQLException {
+
+						session.setFlushMode(FlushMode.AUTO); 
+
+						session.update(evt); 
+
+						session.flush(); 
+
+						return null; 
+					}
+		});
 	}
 
 	/**
@@ -70,8 +91,22 @@ public class EventDaoImpl extends HibernateDaoSupport  implements EventDao{
 
 
 	@Override
-	public void delete(Event evt) {
+	public void delete(final Event evt) {
 		//
-		this.getHibernateTemplate().delete(evt);
+		//this.getHibernateTemplate().delete(evt);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+					public Object doInHibernate(Session session) throws HibernateException, SQLException {
+						session.setFlushMode(FlushMode.AUTO);
+						session.beginTransaction();
+
+						Query query = session.createSQLQuery("DELETE FROM event WHERE event_id=?")
+								.setInteger(0, evt.getEvent_id());
+						query.executeUpdate();
+						
+						session.getTransaction().commit();
+						return null; 
+					}
+				});		
 	}
 }

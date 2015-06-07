@@ -1,5 +1,8 @@
 package com.scuthnweb.tools;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,4 +45,16 @@ public class ParamTools {
     public static int getARandomIntegerInRange(int range){
     	return ((int)(range*Math.random()));
     }
+    
+    /**
+     * 返回指定日期字符串格式的Date对象
+     * @param dateStr  要转化的源日期字符串
+     * @param pattern  源日期字符串格式
+     * @return
+     * @throws ParseException 
+     */
+    public static Date fromPatternToDate(String dateStr,String pattern) throws ParseException{
+    	return (new SimpleDateFormat(pattern)).parse(dateStr);
+    }
 }
+

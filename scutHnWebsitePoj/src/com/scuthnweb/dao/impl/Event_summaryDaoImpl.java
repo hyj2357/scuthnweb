@@ -1,7 +1,13 @@
 package com.scuthnweb.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.scuthnweb.dao.interf.Event_summaryDao;
@@ -40,9 +46,23 @@ public class Event_summaryDaoImpl  extends HibernateDaoSupport implements Event_
 
 
 	@Override
-	public void deleteEvent_summary(Event_summary es) {
+	public void deleteEvent_summary(final Event_summary es) {
 		//调用 Hibernate 模板删除对象
-		this.getHibernateTemplate().delete(es);
+		//this.getHibernateTemplate().delete(es);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+					public Object doInHibernate(Session session) throws HibernateException, SQLException {
+						session.setFlushMode(FlushMode.AUTO);
+						session.beginTransaction();
+
+						Query query = session.createSQLQuery("DELETE FROM event_summary WHERE event_summary_id=?")
+								.setInteger(0, es.getEvent_summary_id());
+						query.executeUpdate();
+						
+						session.getTransaction().commit();
+						return null; 
+					}
+				});	
 	}
 
 

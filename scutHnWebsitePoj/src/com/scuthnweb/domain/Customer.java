@@ -5,9 +5,9 @@ import java.util.Set;
 public class Customer extends BaseCustomer {
 		
 		private String name,customer_password,customer_email,customer_grade,
-		               customer_major,customer_room;
+		               customer_major,customer_room,customer_phone,customer_qq;
 		
-		private int    id,customer_sex,customer_phone,customer_qq,customer_state;
+		private int    id,customer_sex,customer_state;
         
 		public String getCustomer_password() {
 			return customer_password;
@@ -65,19 +65,19 @@ public class Customer extends BaseCustomer {
 			this.customer_sex = customer_sex;
 		}
 
-		public int getCustomer_phone() {
+		public String getCustomer_phone() {
 			return customer_phone;
 		}
 
-		public void setCustomer_phone(int customer_phone) {
+		public void setCustomer_phone(String customer_phone) {
 			this.customer_phone = customer_phone;
 		}
 
-		public int getCustomer_qq() {
+		public String getCustomer_qq() {
 			return customer_qq;
 		}
 
-		public void setCustomer_qq(int customer_qq) {
+		public void setCustomer_qq(String customer_qq) {
 			this.customer_qq = customer_qq;
 		}		
 }

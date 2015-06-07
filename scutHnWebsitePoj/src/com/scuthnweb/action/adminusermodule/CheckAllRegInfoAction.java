@@ -13,7 +13,7 @@ public class CheckAllRegInfoAction extends ActionSupport{
 	public String execute(){
 		ActionContext ctx = ActionContext.getContext();
 		Map<String,String> regMap = this.adminUserModule.checkAllRegInfo();
-		ctx.put("regMap", regMap);
+		ctx.getSession().put("regMap", regMap);
 		return SUCCESS;
 	}
 

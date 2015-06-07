@@ -10,7 +10,8 @@ public class CheckAcNeedAction extends ActionSupport{
 	private NeedModule needModule;	
     private ActionContext ctx;
 	
-    public String execute(){    	
+    public String execute(){   
+    	ctx = ActionContext.getContext();
     	BaseCustomer bs = (BaseCustomer)ctx.getSession().get("customer");
     	if(bs==null)
     		bs = (BaseCustomer)ctx.getSession().get("admin");

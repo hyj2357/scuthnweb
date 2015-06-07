@@ -11,13 +11,14 @@ public class CheckAcNeedUserInfoAction extends ActionSupport{
 	private NeedModule needModule;	
     private ActionContext ctx;
 	
-    public String execute(){  
+    public String execute(){ 
+    	ctx = ActionContext.getContext();
     	Need need = (Need)ctx.getSession().get("need");
     	BaseCustomer bs = (BaseCustomer)ctx.getSession().get("customer");
     	if(bs==null)
     		bs = (BaseCustomer)ctx.getSession().get("admin");
     	//调用业务逻辑组件
-    	ctx.getSession().put("customerMap", this.needModule.checkAcNeedUserInfo(need, bs));
+    	ctx.getSession().put("regMap", this.needModule.checkAcNeedUserInfo(need, bs));
     	return SUCCESS;
     }
 

@@ -42,4 +42,16 @@ public interface MessageDao {
            */
           public List<Object[]> findByMessage_receiver( int message_receiver);
           
+          /**
+           * 
+           * @param ms
+           */
+          public void update(final Message ms);
+          
+          
+          /**
+           * 
+           * @param ms
+           */
+          public void delete(final Message ms);          
 }

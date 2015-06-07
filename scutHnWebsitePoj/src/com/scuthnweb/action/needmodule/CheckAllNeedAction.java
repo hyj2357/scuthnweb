@@ -10,7 +10,8 @@ public class CheckAllNeedAction extends ActionSupport{
 	private NeedModule needModule;	
     private ActionContext ctx;
 	
-    public String execute(){    	
+    public String execute(){ 
+    	ctx  = ActionContext.getContext();
     	//调用业务逻辑组件
     	ctx.getSession().put("needMap", this.needModule.checkAllNeed(ctx.getSession().get("admin")!=null));
     	return SUCCESS;

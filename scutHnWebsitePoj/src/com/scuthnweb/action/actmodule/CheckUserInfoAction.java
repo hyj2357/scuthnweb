@@ -11,7 +11,7 @@ public class CheckUserInfoAction extends ActionSupport{
 	
 	public String execute(){
 		ActionContext ctx = ActionContext.getContext();
-		ctx.getSession().put("event_customer", this.actModule.checkUserInfo(id));
+		ctx.getSession().put("regCustomer", this.actModule.checkUserInfo(id));
 		return SUCCESS;
 	}
 	public ActModule getActModule() {

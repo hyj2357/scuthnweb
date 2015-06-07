@@ -20,6 +20,8 @@ public class ExitActAction extends ActionSupport{
     	Event evt = (Event)ctx.getSession().get("event");
     	if(!this.actModule.exitAct(evt, event_customer))
     		return ERROR;
+		//及时设置
+		ctx.getSession().put("event_take_state", new Integer(1));
     	return SUCCESS;
     }
 

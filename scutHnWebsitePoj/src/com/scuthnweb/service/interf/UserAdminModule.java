@@ -49,7 +49,7 @@ public interface UserAdminModule {
 	 */
 	public BaseCustomer  userIDResgist( String	 customer_name,String   customer_password,
 	                                    int   customer_sex,String   customer_grade,String   customer_major,
-	                                    int   customer_phone,int   customer_qq,String   customer_email,
+	                                    String   customer_phone,String   customer_qq,String   customer_email,
 	                                    String   customer_room);	
 		
 	/**
@@ -73,7 +73,7 @@ public interface UserAdminModule {
 	 * @return boolean
 	 */
 	public boolean  userInfoModify( Customer cs,int	   customer_sex,String customer_grade,
-	                                String customer_major,int    customer_phone,int    customer_qq,
+	                                String customer_major,String    customer_phone,String    customer_qq,
 	                                String customer_email,String customer_room);
 	 
 	

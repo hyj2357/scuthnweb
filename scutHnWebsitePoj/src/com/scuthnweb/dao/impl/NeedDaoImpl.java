@@ -1,7 +1,13 @@
 package com.scuthnweb.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.scuthnweb.dao.interf.NeedDao;
@@ -33,9 +39,25 @@ public class NeedDaoImpl  extends HibernateDaoSupport implements NeedDao{
 	}
 
 	@Override
-	public void updateNeed(Need nd) {
+	public void updateNeed(final Need nd) {
 		//更新需求信息
-		this.getHibernateTemplate().update(nd);
+		//this.getHibernateTemplate().update(nd);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session) throws HibernateException,
+					SQLException {
+
+						session.setFlushMode(FlushMode.AUTO); 
+
+						session.update(nd); 
+
+						session.flush(); 
+
+						return null; 
+					}
+		});
+	
 	}
 
 	@Override
@@ -47,9 +69,23 @@ public class NeedDaoImpl  extends HibernateDaoSupport implements NeedDao{
 
 
 	@Override
-	public void deleteNeed(Need nd) {
+	public void deleteNeed(final Need nd) {
 		//调用 Hibernate 模板删除对象数据
-		this.getHibernateTemplate().delete(nd);
+		//this.getHibernateTemplate().delete(nd);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+					public Object doInHibernate(Session session) throws HibernateException, SQLException {
+						session.setFlushMode(FlushMode.AUTO);
+						session.beginTransaction();
+
+						Query query = session.createSQLQuery("DELETE FROM need WHERE need_id=?")
+								.setInteger(0, nd.getNeed_id());
+						query.executeUpdate();
+						
+						session.getTransaction().commit();
+						return null; 
+					}
+				});			
 	}
 
 

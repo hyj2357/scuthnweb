@@ -1,8 +1,13 @@
 package com.scuthnweb.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.scuthnweb.dao.interf.AdminDao;
@@ -33,9 +38,23 @@ public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao{
 	    return (Admin)this.getHibernateTemplate().get(Admin.class, admin_id);
 	}
 
-	public void upDateAdmin( Admin ad ){
+	public void upDateAdmin( final Admin ad ){
 		//更新管理员信息
-		this.getHibernateTemplate().update(ad);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session) throws HibernateException,
+					SQLException {
+
+						session.setFlushMode(FlushMode.AUTO); 
+
+						session.update(ad); 
+
+						session.flush(); 
+
+						return null; 
+					}
+		});
 	}
 
 	@Override

@@ -35,6 +35,8 @@ public class UserAdminModuleImpl implements UserAdminModule{
 		Message ms = new Message();
 		Customer cs = this.customerDao.findCustomerByCustomerID(customer_id);
 		Customer cs_1 = this.customerDao.findCustomerByCustomerEmail(customer_email);
+		//如果该id注册邮箱与填写邮箱不一致或者该id不存在
+		//返回false
 		if(cs_1!=cs || cs_1==null )
 			return false;
 		ms.setMessage_title("用户找回密码消息");
@@ -62,9 +64,14 @@ public class UserAdminModuleImpl implements UserAdminModule{
 	@Override
 	public BaseCustomer userIDResgist(String customer_name,String customer_password,
 			                          int customer_sex, String customer_grade, String customer_major,
-			                          int customer_phone, int customer_qq, String customer_email,
+			                          String customer_phone, String customer_qq, String customer_email,
 			                          String customer_room) {
+		//如果邮箱已被注册过
+		//结束流程并返回空值
+		if(this.customerDao.findCustomerByCustomerEmail(customer_email)!=null)
+			return null;
 		Customer cs = new Customer();
+		cs.setName(customer_name);
 		cs.setCustomer_email(customer_email);
 		cs.setCustomer_grade(customer_grade);
 		cs.setCustomer_major(customer_major);
@@ -75,17 +82,19 @@ public class UserAdminModuleImpl implements UserAdminModule{
 		cs.setCustomer_sex(customer_sex);
 		//设置新用户无相应权限
 		cs.setCustomer_state(1);
+		this.customerDao.createCustomer(cs);
+		
 		Message ms = new Message();
 		ms.setMessage_title("新用户注册信息");
 		ms.setMessage_content("新用户[name:"+cs.getName()+"]"+"请求注册;");
 		ms.setMessage_publisher(cs);		
 		ms.setMessage_state(0);		
 		//由id为 1~10 中随机抽取一名管理员审核新用户信息
+		//测试阶段发给2号管理员
 		Admin ad = this.adminDao.findAdminByAdminId(ParamTools.getARandomIntegerInRange(10));
 		ms.setMessage_receiver(ad);
-		
+		//推送消息
 		this.messageDao.createMessage(ms);
-		this.customerDao.createCustomer(cs);
 		return cs;
 	}
 
@@ -95,8 +104,8 @@ public class UserAdminModuleImpl implements UserAdminModule{
 	}
 
 	@Override
-	public boolean userInfoModify(Customer cs, int customer_sex,String customer_grade, String customer_major, int customer_phone,
-			                      int customer_qq, String customer_email, String customer_room) {
+	public boolean userInfoModify(Customer cs, int customer_sex,String customer_grade, String customer_major, String customer_phone,
+			                      String customer_qq, String customer_email, String customer_room) {
 		 
 		 cs.setCustomer_email(customer_email); 
 		 cs.setCustomer_grade(customer_grade);

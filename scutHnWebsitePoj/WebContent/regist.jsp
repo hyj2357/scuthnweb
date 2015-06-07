@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%@ page language="java" contentType="text/html; charset=GBK" pageEncoding="utf-8"%>
 <html>
 <head>
-<title>��¼ҳ��</title>
+<title>登录页面</title>
 </head>
 <body>
 
 <form action="addAdmin_testAction" method="post">
     <table align="center">
-    <caption><h3>�û�ע��</h3></caption>
+    <caption><h3>用户注册</h3></caption>
         <tr>
-            <td>�û�����<input type="text" name="admin_name"/></td>
+            <td>用户名：<input type="text" name="admin_name"/></td>
         </tr>
         <tr>
-            <td>��&nbsp;&nbsp;�룺<input type="text" name="admin_password"/></td>
+            <td>密&nbsp;&nbsp;码：<input type="text" name="admin_password"/></td>
         </tr>
         <tr align="center">
-            <td colspan="2"><input type="submit" value="��¼"/><input type="reset" value="����" /></td>
+            <td colspan="2"><input type="submit" value="登录"/><input type="reset" value="重填" /></td>
         </tr>
     </table>
 </form>

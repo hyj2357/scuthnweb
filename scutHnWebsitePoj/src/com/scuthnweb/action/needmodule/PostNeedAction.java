@@ -13,6 +13,7 @@ public class PostNeedAction extends ActionSupport{
 	private String need_name,need_content;
     
     public String execute(){
+    	ctx  = ActionContext.getContext();
     	Need need = (Need)ctx.getSession().get("need");
     	BaseCustomer bs = (BaseCustomer)ctx.getSession().get("customer");
     	if(bs==null)

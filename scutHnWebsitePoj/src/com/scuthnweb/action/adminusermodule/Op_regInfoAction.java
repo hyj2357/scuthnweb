@@ -14,8 +14,8 @@ public class Op_regInfoAction extends ActionSupport{
 	
 	public String execute(){
 		ActionContext ctx = ActionContext.getContext();
-		Admin ad = (Admin)ctx.get("admin");
-		Customer cs = (Customer)ctx.get("regCustomer");
+		Admin ad = (Admin)ctx.getSession().get("admin");
+		Customer cs = (Customer)ctx.getSession().get("regCustomer");
 		boolean _accept = accept==0?true:false;
 	    if(this.adminUserModule.op_regInfo(ad, cs, _accept))
 	    	 return SUCCESS;

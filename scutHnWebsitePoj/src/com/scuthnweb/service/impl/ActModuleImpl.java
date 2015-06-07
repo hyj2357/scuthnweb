@@ -51,7 +51,7 @@ public class ActModuleImpl implements ActModule{
 
 	@Override
 	public BaseCustomer checkUserInfo(int customer_id) {
-		return customer_id>1000000000?
+		return customer_id>10?
 			   this.customerDao.findCustomerByCustomerID(customer_id):
 			   this.adminDao.findAdminByAdminId(customer_id);
 	}
@@ -90,12 +90,11 @@ public class ActModuleImpl implements ActModule{
 
 	@Override
 	public Map<String, String> checkTakePartInUserInfo(int event_id,int event_publisher) {
-	    Map<String,String> evtBsMap = null;
+	    Map<String,String> evtBsMap = new HashMap<String,String>();
 	    if(this.eventDao.findByEvent_publisher(event_publisher)!=null){
-	    	evtBsMap = new HashMap<String,String>();
 	    	List<Event_summary> es = this.event_summaryDao.findByEvent_id(event_id);
 	    	for(Event_summary esum:es){
-	    		evtBsMap.put(esum.getEvent_customer().getName(), "checkUserInfoAction?id="+esum.getEvent_customer().getId());
+	    		evtBsMap.put(esum.getEvent_customer().getName(), "checkUserInfo_actModuleAction?id="+esum.getEvent_customer().getId());
 	    	}
 	    }
 	    return evtBsMap;
@@ -155,13 +154,15 @@ public class ActModuleImpl implements ActModule{
 
 	@Override
 	public boolean deleteAct(Event evt, Admin ad) {
-		if(evt!=null){
-			   evt.setEvent_state(0);
+		// 删除之前先下线
+		if(!this.offLineAct(evt, ad))
+			return false;
+		if(evt!=null&&evt.getEvent_publisher().getId()==ad.getId()){
 			   this.eventDao.delete(evt);
 		       return true;
 		}
 		else return false;
-		}
+	}
 
 	@Override
 	public boolean takePartInAct(Event evt,BaseCustomer event_customer) {
@@ -204,7 +205,7 @@ public class ActModuleImpl implements ActModule{
 		evt.setEvent_time(event_time);
 		evt.setEvent_intro(event_intro);
 		//持久化至数据库中
-		this.eventDao.createEvent(evt);
+		this.eventDao.updateEvent(evt);
 		
 	    //如果当前活动处于上线状态
 		if(evt.getEvent_state()==0){

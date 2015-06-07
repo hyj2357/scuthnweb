@@ -11,11 +11,7 @@ public class AdminLoginAction extends ActionSupport{
 	private int admin_id;
 	private String admin_password;
     private AdminAdModule adminAdModule;
-    
-    private final String MODIFYPASSWORD = "modifyPassword";
-    private final String SETNAME = "setName";
-    private final String CREATEACT = "createAct";
-    
+   
     public String execute(){
     	BaseCustomer admin = adminAdModule.adminLogin(admin_id, admin_password);
         if(admin==null) 
@@ -23,8 +19,7 @@ public class AdminLoginAction extends ActionSupport{
         else{
         	ActionContext ctx = ActionContext.getContext();
         	ctx.getSession().put("admin", admin);
-        	//test
-        	return "testActAction";
+            return SUCCESS;
         }
     }
 	public AdminAdModule getAdminAdModule() {

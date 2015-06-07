@@ -11,6 +11,7 @@ public class CheckPostNoteAction extends ActionSupport{
     private ActionContext ctx;
 	
     public String execute(){
+    	ctx = ActionContext.getContext();
     	Admin ad = (Admin)ctx.getSession().get("admin");
         ctx.getSession().put("noteMap", this.noteModule.checkPostNote(ad));
         return SUCCESS;

@@ -32,24 +32,12 @@ public interface AdminUserModule {
 	public boolean op_regInfo( Admin message_publisher,Customer cs, boolean accept);
     
 	/**
-	 * Jun: 根据输入条件查看所有符合条件的用户信息（可选择输入条件，未输入的默认为全选）
+	 * Jun: 查看所有用户信息
 	 * @validate yes
 	 * @intercept yes
-	 * @param customer_id
-	 * @param customer_name
-	 * @param customer_sex
-	 * @param customer_grade
-	 * @param customer_major
-	 * @param customer_phone
-	 * @param customer_qq
-	 * @param customer_email
-	 * @param customer_room
 	 * @return
-	 * @deprecated
 	 */
-	public Map<String,String> checkAllUserInfo( int    customer_id,String customer_name,int    customer_sex, 
-                                             String customer_grade,String customer_major,int    customer_phone, 
-                                             int    customer_qq,String customer_email,String customer_room);
+	public Map<String,String> checkAllUserInfo();
 
 	/**
 	 * Jun: 查看用户信息
@@ -88,8 +76,8 @@ public interface AdminUserModule {
      */
     public  boolean modifyUserInfo( Admin ad,Customer    customer,String customer_name,
                                     String customer_password,int    customer_sex,String customer_grade, 
-                                    String customer_major,int    customer_phone,int    customer_qq, 
+                                    String customer_major,String    customer_phone,String    customer_qq, 
                                     String customer_email,String customer_room);
 
-
+    
 }

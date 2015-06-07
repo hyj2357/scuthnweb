@@ -11,9 +11,10 @@ public class CheckUserInfoAction extends ActionSupport{
     private ActionContext ctx;
 	private int id;
     
-	public String execute(){    	
+	public String execute(){ 
+		ctx = ActionContext.getContext();
     	//调用业务逻辑组件
-    	ctx.getSession().put("need_Customer", this.needModule.checkUserInfo(id));
+    	ctx.getSession().put("regCustomer", this.needModule.checkUserInfo(id));
     	return SUCCESS;
     }
 

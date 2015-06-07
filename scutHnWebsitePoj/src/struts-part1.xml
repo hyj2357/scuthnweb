@@ -6,4 +6,5 @@
 <struts>
     <constant name="struts.custom.i18n.resources" value="messageResource"/>
 	<constant name="struts.i18n.encoding" value="GBK"></constant>
+	
 </struts>

@@ -11,6 +11,7 @@ public class CheckMessageAction extends ActionSupport{
 	private int message_id;
     
     public String execute(){
+    	ctx = ActionContext.getContext();
     	ctx.getSession().put("message", this.messageModule.checkMessage(message_id));
     	return SUCCESS;
     }

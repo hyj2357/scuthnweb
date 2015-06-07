@@ -1,13 +1,13 @@
 package com.scuthnweb.dao.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.hibernate.SessionFactory;
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.scuthnweb.dao.interf.CustomerDao;
@@ -60,9 +60,24 @@ public class CustomerDaoImpl  extends HibernateDaoSupport implements CustomerDao
 
 
 	@Override
-	public void updateCustomer(Customer cs) {
+	public void updateCustomer(final Customer cs) {
 		//更新持久化对象
-		this.getSession().update(cs);
+		//this.getHibernateTemplate().update(cs);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session) throws HibernateException,
+					SQLException {
+
+						session.setFlushMode(FlushMode.AUTO); 
+
+						session.update(cs); 
+
+						session.flush(); 
+
+						return null; 
+					}
+				});
 	}
 
 
@@ -91,8 +106,22 @@ public class CustomerDaoImpl  extends HibernateDaoSupport implements CustomerDao
 
 
 	@Override
-	public void deleteCustomer(Customer cs) {
-		this.getHibernateTemplate().delete(cs);
+	public void deleteCustomer(final Customer cs) {
+		//this.getHibernateTemplate().delete(cs);
+		this.getHibernateTemplate().execute(
+				new HibernateCallback() {
+					public Object doInHibernate(Session session) throws HibernateException, SQLException {
+						session.setFlushMode(FlushMode.AUTO);
+						session.beginTransaction();
+
+						Query query = session.createSQLQuery("DELETE FROM customer WHERE id=?")
+								.setInteger(0, cs.getId());
+						query.executeUpdate();
+						
+						session.getTransaction().commit();
+						return null; 
+					}
+				});
 	}
 
 

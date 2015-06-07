@@ -13,6 +13,7 @@ public class CheckAllNoteAction extends ActionSupport{
     private ActionContext ctx;
 	
     public String execute(){
+    	ctx = ActionContext.getContext();
         ctx.getSession().put("noteMap", this.noteModule.checkAllNote(ctx.getSession().get("admin")!=null));
         return SUCCESS;
     }

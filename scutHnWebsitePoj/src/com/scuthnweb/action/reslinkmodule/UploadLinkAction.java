@@ -13,6 +13,7 @@ public class UploadLinkAction extends ActionSupport{
     private String share_link_name, share_link_content;
 	
     public String execute(){
+    	ctx = ActionContext.getContext();
     	BaseCustomer cs = (BaseCustomer)ctx.getSession().get("customer");
     	if(cs==null)
     		cs = (BaseCustomer)ctx.getSession().get("admin");

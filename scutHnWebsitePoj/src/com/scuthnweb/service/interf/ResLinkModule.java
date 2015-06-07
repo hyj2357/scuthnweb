@@ -65,7 +65,7 @@ public interface ResLinkModule {
 	 */
 	public Map<String,String> checkAllResLink( boolean isAdmin);
 	
-	
+
 	/**
 	 * Jun:查看上传的资源链接
 	 * @validate  no

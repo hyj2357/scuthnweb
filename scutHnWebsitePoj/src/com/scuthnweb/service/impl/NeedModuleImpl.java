@@ -99,7 +99,7 @@ public class NeedModuleImpl implements NeedModule{
 		Map<String,String> needMap = new HashMap<String,String>();		
 		List<Object[]> ls = isAdmin?this.needDao.findAllNeed(2):this.needDao.findAllNeed(0);
 	    for(Object[] itr:ls){
-	    	needMap.put((String)itr[1], "CheckNeedAction?need_id="+itr[0]);
+	    	needMap.put((String)itr[1], "checkNeedAction?need_id="+itr[0]);
 	    }
 		return needMap;
 	}
@@ -109,7 +109,7 @@ public class NeedModuleImpl implements NeedModule{
 		Map<String,String> needMap = new HashMap<String,String>();		
 		List<Need> ls = this.needDao.findByNeed_publisher(need_publisher.getId());
 	    for(Need itr:ls){
-	    	needMap.put(itr.getNeed_name(), "CheckNeedAction?need_id="+itr.getNeed_id());
+	    	needMap.put(itr.getNeed_name(), "checkNeedAction?need_id="+itr.getNeed_id());
 	    }
 		return needMap;
 	}
@@ -119,7 +119,7 @@ public class NeedModuleImpl implements NeedModule{
 		List<Pub_rec_need> prnList = this.pub_rec_needDao.findByNeed_reciever(need_receiver.getId()); 
 		Map<String,String> needMap = new HashMap<String,String>();
 		for(Pub_rec_need prn :prnList){
-			needMap.put(prn.getNeed().getNeed_name(), "CheckNeedAction?need_id="+prn.getNeed().getNeed_id());
+			needMap.put(prn.getNeed().getNeed_name(), "checkNeedAction?need_id="+prn.getNeed().getNeed_id());
 		}
 		return needMap;
     }
@@ -128,12 +128,12 @@ public class NeedModuleImpl implements NeedModule{
 	public Map<String, String> checkAcNeedUserInfo(Need need, BaseCustomer need_publisher) {
 		//如果当前检测该用户非该需求发布者
 		//返回空值
-		if(need.getNeed_publisher()!=need_publisher)
+		if(need.getNeed_publisher().getId()!=need_publisher.getId())
 			return null;
 		Map<String,String> csMap = new HashMap<String,String>();
 		List<Pub_rec_need> prnList = this.pub_rec_needDao.findByNeed_id(need.getNeed_id());
 		for(Pub_rec_need prn :prnList){
-			csMap.put(prn.getNeed_receiver().getName(), "CheckUserInfoAction?id="+prn.getNeed_receiver().getId());
+			csMap.put(prn.getNeed_receiver().getName(), "checkUserInfo_needmoduleAction?id="+prn.getNeed_receiver().getId());
 		}
 		return csMap;
 	}
@@ -141,7 +141,7 @@ public class NeedModuleImpl implements NeedModule{
 	public BaseCustomer checkUserInfo(int id){
 		//管理员账号ID则查询管理员
 		//否则查询普通用户
-		return id>1000000000?
+		return id>10?
 			   this.customerDao.findCustomerByCustomerID(id):
 			   this.adminDao.findAdminByAdminId(id);
 		
@@ -151,7 +151,7 @@ public class NeedModuleImpl implements NeedModule{
 	public boolean delNeed(Need need, BaseCustomer need_publisher) {
 		//如果当前检测该用户非该需求发布者
 		//返回空值
-		if(need.getNeed_publisher()!=need_publisher)
+		if(need.getNeed_publisher().getId()!=need_publisher.getId())
 			return false;		
 		//发送消息通知接受该需求者需求已被删除
 		List<Pub_rec_need> prnList = this.pub_rec_needDao.findByNeed_id(need.getNeed_id()); 
@@ -188,8 +188,8 @@ public class NeedModuleImpl implements NeedModule{
 	@Override
 	public boolean modifyNeed(Need need, BaseCustomer cs, String need_name, String need_content) {
 		//如果当前检测该用户非该需求发布者
-		//返回空值
-		if(need.getNeed_publisher()!=cs)
+		//返回false
+		if(need.getNeed_publisher().getId()!=cs.getId())
 			return false;		
 		need.setNeed_name(need_name);
 		need.setNeed_content(need_content);
@@ -218,7 +218,7 @@ public class NeedModuleImpl implements NeedModule{
 	public boolean setNeedSucc(Need need, BaseCustomer need_publisher) {
 		//如果当前检测该用户非该需求发布者
 		//返回空值
-		if(need.getNeed_publisher()!=need_publisher)
+		if(need.getNeed_publisher().getId()!=need_publisher.getId())
 			return false;		
 		//修改需求状态
 		need.setNeed_state(1);

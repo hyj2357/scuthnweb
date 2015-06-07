@@ -21,9 +21,11 @@
        
           <!-- 拦截器配置 -->
           <interceptor name="adminIntercept" class="com.scuthnweb.action.authority.AdminInterceptor"/>             
+          <interceptor name="adminAuthority" class="com.scuthnweb.action.authority.AdminAuthority"/>             
           <interceptor name="baseCustomerIntercept" class="com.scuthnweb.action.authority.BaseCustomerInterceptor"/>             
           <interceptor name="baseCustomerAuthority" class="com.scuthnweb.action.authority.BaseCustomerAuthority"/>             
           <interceptor name="eventIntercept" class="com.scuthnweb.action.authority.EventInterceptor"/>             
+          <interceptor name="pageIntercept" class="pageInterceptor"/>             
                     
           <!-- 拦截器栈配置 -->
           <interceptor-stack name="adminInterceptStack">
@@ -31,8 +33,18 @@
              <interceptor-ref name="defaultStack"/>
           </interceptor-stack>
           
+          <interceptor-stack name="adminAuthorityStack">
+             <interceptor-ref name="adminAuthority"/>
+             <interceptor-ref name="defaultStack"/>
+          </interceptor-stack>          
+          
           <interceptor-stack name="baseCustomerInterceptStack">
              <interceptor-ref name="baseCustomerIntercept"/>
+             <interceptor-ref name="defaultStack"/>
+          </interceptor-stack>
+          
+          <interceptor-stack name="baseCustomerAuthorityStack">
+             <interceptor-ref name="baseCustomerAuthority"/>
              <interceptor-ref name="defaultStack"/>
           </interceptor-stack>
           
@@ -41,6 +53,10 @@
              <interceptor-ref name="defaultStack"/>
           </interceptor-stack>          
           
+          <interceptor-stack name="pageInterceptStack">
+             <interceptor-ref name="pageIntercept"/>
+             <interceptor-ref name="defaultStack"/>
+          </interceptor-stack>                    
        </interceptors>
        
          
@@ -53,69 +69,425 @@
 
        <!-- Jun:管理员登录 -->
        <action name="adminLoginAction" class="adminLogin">
-           <result name="input">/WEB-INF/adminAdModuleJsp/adminLogin.jsp</result>
-           <result name="success">/WEB-INF/adminAdModuleJsp/welcome.jsp</result>
-           <result name="error">/WEB-INF/adminAdModuleJsp/adminLogin.jsp</result>  
-           
-           <result name="setName">/WEB-INF/adminAdModuleJsp/setName.jsp</result>
-           <result name="modifyPassword">/WEB-INF/adminAdModuleJsp/modifyPassword.jsp</result>   
-           
-                   
-           <result name="testActAction">/WEB-INF/actModuleJsp/testActAction.jsp</result>                  
-      
+           <result name="input">/WEB-INF/html/admin/adminLogin.jsp</result>
+           <result name="success">/WEB-INF/html/index/index.jsp</result>
+           <result name="error">/WEB-INF/html/admin/adminLogin.jsp</result>  
        </action>
        
        <action name="modifyPasswordAction" class="modifyPassword">
-           <result name="input">/WEB-INF/adminAdModuleJsp/modifyPassword.jsp</result>
-           <result name="success">/WEB-INF/adminAdModuleJsp/welcome.jsp</result>
-           <result name="error">/WEB-INF/adminAdModuleJsp/modifyPassword.jsp</result>  
+           <result name="input">/WEB-INF/html/admin/modifyPassword.jsp</result>
+           <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+           <result name="error">/WEB-INF/html/admin/modifyPassword.jsp</result>  
        </action>
        
        <action name="setNameAction" class="setName">
-           <result name="input">/WEB-INF/adminAdModuleJsp/setName.jsp</result>
-           <result name="success">/WEB-INF/adminAdModuleJsp/welcome.jsp</result>
-           <result name="error">/WEB-INF/adminAdModuleJsp/setName.jsp</result>  
+           <result name="input">/WEB-INF/html/admin/setName.jsp</result>
+           <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+           <result name="error">/WEB-INF/html/admin/setName.jsp</result>  
        </action>
+       
+       <action name="adminIDLogOutAction" class="adminIDLogOut">
+           <result name="success">/WEB-INF/html/index/index.jsp</result>
+       </action>
+       
        
 <!-- End 管理员个人管理模块  --> 
 
-<!-- 活动模块 --> 
-       <action name="testActAction" class="com.scuthnweb.testforward.ActModuleTestAction">
-          <result name="checkAllAct" type="chain">
-                <param name="actionName">checkAllActAction</param>
-          </result>
-          <result name="checkPublish" type="chain">
-                <param name="actionName">checkPublishAction</param>
-          </result>   
-          
-          <result name="createAct">/WEB-INF/actModuleJsp/createAct.jsp</result>   
-                      
-          <result name="success">/WEB-INF/actModuleJsp/welcome.jsp</result>
-          <result name="error">/WEB-INF/actModuleJsp/createAct.jsp</result>                              
-       </action>
-       
+<!-- 活动模块 -->        
        <action name="createActAction" class="createAct">
-          <result name="input">/WEB-INF/actModuleJsp/createAct.jsp</result>          
-          <result name="success">/WEB-INF/actModuleJsp/welcome.jsp</result>
-          <result name="error">/WEB-INF/actModuleJsp/createAct.jsp</result>          
+          <result name="input">/WEB-INF/html/action/createAction.jsp</result>          
+          <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="error">/WEB-INF/html/action/createAction.jsp</result> 
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>           
           <interceptor-ref name="adminInterceptStack"/>
-          <interceptor-ref name="baseCustomerAuthority"/>                  
        </action>
                
        <action name="checkAllActAction" class="checkAllAct">
-          <result name="success">/WEB-INF/actModuleJsp/checkAllAct.jsp</result>
+          <result name="success">/WEB-INF/html/action/checkAllActs.jsp</result>
        </action>
        
        <action name="checkPublishAction" class="checkPublish">
-          <result name="success">/WEB-INF/actModuleJsp/checkPublishAct.jsp</result>
+          <result name="success">/WEB-INF/html/action/checkAllActs.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <interceptor-ref name="adminInterceptStack"/>                        
        </action>
        
        <action name="checkTakePartInAction" class="checkTakePartIn">
-          <result name="success">/WEB-INF/actModuleJsp/checkPublishAct.jsp</result>
+          <result name="success">/WEB-INF/html/action/checkAllActs.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="bsError">/WEB-INF/html/customer options/actionNavigationPage.jsp</result>
+          <interceptor-ref name="baseCustomerInterceptStack"/>                        
        </action>
-            
+       
+       <action name="checkTakePartInUserInfoAction" class="checkTakePartInUserInfo">
+          <result name="success">/WEB-INF/html/admin/checkAllCustomers.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <interceptor-ref name="adminInterceptStack"/>                 
+       </action>
+       
+       <action name="checkUserInfo_actModuleAction" class="checkUserInfo_actModule">
+          <result name="success">/WEB-INF/html/admin/adminCheckUserInfo.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <interceptor-ref name="adminInterceptStack"/>                 
+       </action>
+       
+       <action name="checkActAction" class="checkAct">
+          <result name="success">/WEB-INF/html/action/checkAction.jsp</result>
+       </action>
+       
+       <action name="deleteActAction" class="deleteAct">
+          <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="error">/WEB-INF/html/action/checkAction.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <interceptor-ref name="adminInterceptStack"/>                           
+       </action>
+       
+       <action name="modifyActAction" class="modifyAct">
+          <result name="success">/WEB-INF/html/action/checkAction.jsp</result>
+          <result name="error">/WEB-INF/html/action/modifyAction.jsp</result>
+          <result name="input">/WEB-INF/html/action/modifyAction.jsp</result>          
+       </action>  
+       
+       <action name="takePartInActAction" class="takePartInAct">
+          <result name="success">/WEB-INF/html/action/checkAction.jsp</result>
+          <result name="error">/WEB-INF/html/action/checkAction.jsp</result>
+       </action>  
+       
+       <action name="exitActAction" class="exitAct">
+          <result name="success">/WEB-INF/html/action/checkAction.jsp</result>
+          <result name="error">/WEB-INF/html/action/checkAction.jsp</result>
+       </action>
+       
+       <action name="offLineActAction" class="offLineAct">
+          <result name="success">/WEB-INF/html/action/checkAction.jsp</result>
+          <result name="error">/WEB-INF/html/action/checkAction.jsp</result>
+       </action>
+       
+       <action name="onLineActAction" class="onLineAct">
+          <result name="success">/WEB-INF/html/action/checkAction.jsp</result>
+          <result name="error">/WEB-INF/html/action/checkAction.jsp</result>
+       </action>                         
 <!-- End 活动模块  --> 
 
+<!-- 公告信息管理模块-->
+       <action name="postNoteAction" class="postNote">
+          <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="error">/WEB-INF/html/admin/postNote.jsp</result>
+          <result name="input">/WEB-INF/html/admin/postNote.jsp</result> 
+          <interceptor-ref name="adminInterceptStack"/>
+          <interceptor-ref name="baseCustomerAuthority"/>                                 
+       </action>
+       
+       <action name="checkAllNoteAction" class="checkAllNote">
+          <result name="success">/WEB-INF/html/admin/checkAllNotes.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+       </action>
+       
+       <action name="checkNoteAction" class="checkNote">
+          <result name="success">/WEB-INF/html/admin/checkNote.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+       </action>
+       
+       <action name="modifyNoteAction" class="modifyNote">
+          <result name="success">/WEB-INF/html/admin/checkNote.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="input">/WEB-INF/html/admin/modifyNote.jsp</result>          
+          <result name="adminError">/WEB-INF/html/admin/checkNote.jsp</result>          
+          <interceptor-ref name="adminInterceptStack"/>
+       </action>
+       
+       <action name="checkPostNoteAction" class="checkPostNote">
+          <result name="success">/WEB-INF/html/admin/checkAllNotes.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>          
+          <interceptor-ref name="adminInterceptStack"/>
+       </action>  
+       <action name="offlineNoteAction" class="offlineNote">
+          <result name="success">/WEB-INF/html/admin/checkAllNotes.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/checkNote.jsp</result>
+          <result name="adminError">/WEB-INF/html/admin/checkNote.jsp</result>          
+          <interceptor-ref name="adminInterceptStack"/>
+       </action>                         
+<!-- End 公告信息管理模块-->
 
+<!-- 用户个人管理模块 -->
+       <action name="userIDRegistAction" class="userIDRegist">
+          <result name="success">/WEB-INF/html/index/index.jsp</result>
+          <result name="error">/WEB-INF/html/customers/userRegist.jsp</result>
+          <result name="input">/WEB-INF/html/customers/userRegist.jsp</result>
+       </action>
+       
+       <action name="userIDLoginAction" class="userIDLogin">
+          <result name="input">/WEB-INF/html/customers/userLogin.jsp</result>          
+          <result name="success">/WEB-INF/html/index/index.jsp</result>
+          <result name="error">/WEB-INF/html/customers/userLogin.jsp</result>
+       </action>
+       
+       <action name="userInfoModifyAction" class="userInfoModify">
+          <result name="success">/WEB-INF/html/customers/checkUserInfo.jsp</result>
+          <result name="error">/WEB-INF/html/customers/modifyUserInfo.jsp</result>
+          <result name="input">/WEB-INF/html/customers/modifyUserInfo.jsp</result>
+       </action>
+       
+       <action name="userIDLogOutAction" class="userIDLogOut">
+          <result name="success">/WEB-INF/html/index/index.jsp</result>
+       </action>  
+       
+       <action name="userFindIDAction" class="userFindID">
+          <result name="input">/WEB-INF/html/customers/userFindIdByName.jsp</result>
+          <result name="success">/WEB-INF/html/customers/checkUserId.jsp</result>
+          <result name="error">/WEB-INF/html/customers/userFindIdByName.jsp</result>          
+       </action>   
+       
+       <action name="userFindPasswordAction" class="userFindPassword">
+          <result name="input">/WEB-INF/html/customers/findUserPassword.jsp</result>
+          <result name="success">/WEB-INF/html/index/index.jsp</result>
+          <result name="error">/WEB-INF/html/customers/findUserPassword.jsp</result>          
+       </action>   
+       
+       <action name="userPasswordChangeAction" class="userPasswordChange">
+          <result name="input">/WEB-INF/html/customers/changeUserPassword.jsp</result>
+          <result name="success">/WEB-INF/html/index/index.jsp</result>
+          <result name="error">/WEB-INF/html/customers/changeUserPassword.jsp</result>          
+       </action>                    
+<!-- end 用户个人管理模块 -->
+
+<!--  管理员管理用户模块 -->
+       <action name="checkAllUserInfoAction" class="checkAllUserInfo">
+          <result name="success">/WEB-INF/html/admin/checkAllCustomers.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="adminInterceptStack"/>      
+       </action>
+       
+       <action name="checkUserInfoAction_adminUserModule" class="checkUserInfo_adminUserModule">
+          <result name="success">/WEB-INF/html/admin/adminCheckUserInfo.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="adminInterceptStack"/>      
+       </action>  
+       
+       <action name="checkRegInfoAction" class="checkRegInfo">
+          <result name="success">/WEB-INF/html/admin/adminCheckRegUserInfo.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="adminInterceptStack"/>      
+       </action>  
+       
+       <action name="modifyUserInfoAction" class="modifyUserInfo">
+          <result name="success">/WEB-INF/html/admin/adminCheckUserInfo.jsp</result>
+          <result name="error">/WEB-INF/html/admin/modifyUserInfo.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="adminInterceptStack"/>      
+       </action>         
+       
+       <action name="checkAllRegInfoAction" class="checkAllRegInfo">
+          <result name="success">/WEB-INF/html/admin/checkAllCustomers.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="adminInterceptStack"/>      
+       </action>         
+       
+       <action name="op_regInfoAction" class="op_regInfo">
+          <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="error">/WEB-INF/html/admin/adminCheckRegUserInfo.jsp</result>
+          <result name="adminError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="adminInterceptStack"/>      
+       </action>                    
+<!-- end 管理员管理用户模块-->
+
+<!-- 资源链接模块-->
+       <action name="checkAllResLinkAction" class="checkAllResLink">
+          <result name="success">/WEB-INF/html/link/checkAllResLink.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+       </action> 
+       
+       <action name="uploadLinkAction" class="uploadLink">
+          <result name="success">/WEB-INF/html/customer options/navigationPage.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="bsError">/WEB-INF/html/index/loginIndex.jsp</result>    
+          <result name="customerAuthorityError">/WEB-INF/html/customer options/navigationPage.jsp</result>    
+          <result name="adminAuthorityError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="baseCustomerInterceptStack"/>                       
+          <interceptor-ref name="baseCustomerAuthorityStack"/>      
+       </action> 
+       
+       <action name="checkVerifyLinkAction" class="checkVerifyLink">
+          <result name="success">/WEB-INF/html/link/checkVerifyLink.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+       </action> 
+       
+       <action name="checkLinkAction" class="checkLink">
+          <result name="success">/WEB-INF/html/link/checkResLink.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+       </action> 
+       
+       <action name="op_linkAction" class="op_link">
+          <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          
+          <result name="adminError">/WEB-INF/html/index/loginIndex.jsp</result>
+          <result name="adminAuthorityError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>          
+          <interceptor-ref name="adminInterceptStack"/>      
+          <interceptor-ref name="adminAuthorityStack"/>                     
+       </action>
+       
+       <action name="updateLinkAction" class="updateLink">
+          <result name="success">/WEB-INF/html/link/checkResLink.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="input">/WEB-INF/html/adminSS/checkResLink.jsp</result>          
+          
+          <result name="bsError">/WEB-INF/html/index/loginIndex.jsp</result>    
+          <result name="customerAuthorityError">/WEB-INF/html/customer options/navigationPage.jsp</result>    
+          <result name="adminAuthorityError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>    
+          <interceptor-ref name="baseCustomerInterceptStack"/>                       
+          <interceptor-ref name="baseCustomerAuthorityStack"/>      
+       </action> 
+       
+       <action name="delLinkAction" class="delLink">
+          <result name="success">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+          <result name="error">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>
+       </action> 
+  
+       <action name="checkUploadLinkAction" class="checkUploadLink">
+          <result name="success">/WEB-INF/html/link/checkAllResLink.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>
+       </action>                                              
+<!-- end 资源链接模块-->
+
+<!-- 需求管理模块-->
+       <action name="postNeedAction" class="postNeed">
+          <result name="input">/WEB-INF/html/need/postNeed.jsp</result>         
+          <result name="success">/WEB-INF/html/customer options/navigationPage.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>
+       </action>                                              
+       
+       <action name="checkAllNeedAction" class="checkAllNeed">
+          <result name="success">/WEB-INF/html/need/checkAllNeeds.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>
+       </action>                                                     
+
+       <action name="checkNeedAction" class="checkNeed">
+          <result name="success">/WEB-INF/html/need/detailNeed.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>
+       </action>
+       
+       <action name="checkAcNeedAction" class="checkAcNeed">
+          <result name="success">/WEB-INF/html/need/checkAllNeeds.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/needNavigationPage.jsp</result>
+       </action>
+       
+       <action name="checkPostNeedAction" class="checkPostNeed">
+          <result name="success">/WEB-INF/html/need/checkAllNeeds.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/needNavigationPage.jsp</result>
+       </action>
+       
+       <action name="checkAcNeedUserInfoAction" class="checkAcNeedUserInfo">
+          <result name="success">/WEB-INF/html/admin/checkAllCustomers.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/needNavigationPage.jsp</result>
+       </action>       
+       
+       <action name="checkUserInfo_needmoduleAction" class="checkUserInfo_needmodule">
+          <result name="success">/WEB-INF/html/need/checkAcNeedUserInfo.jsp</result>
+          <result name="error">/WEB-INF/html/customer options/needNavigationPage.jsp</result>
+       </action>
+       
+       <action name="modifyNeedAction" class="modifyNeed">
+          <result name="input">/WEB-INF/html/need/modifyNeed.jsp</result>       
+          <result name="success">/WEB-INF/html/need/detailNeed.jsp</result>          
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>
+       </action>
+       
+       <action name="delNeedAction" class="delNeed">
+          <result name="success">/WEB-INF/html/customer options/navigationPage.jsp</result>          
+          <result name="error">/WEB-INF/html/need/detailNeed.jsp</result>
+       </action> 
+       
+       <action name="setNeedSuccAction" class="setNeedSucc">
+          <result name="success">/WEB-INF/html/need/detailNeed.jsp</result>       
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>          
+       </action>
+       
+       <action name="acceptNeedAction" class="acceptNeed">
+          <result name="success">/WEB-INF/html/customer options/navigationPage.jsp</result>       
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>          
+       </action>  
+       
+       <action name="cancelAcNeedAction" class="cancelAcNeed">
+          <result name="success">/WEB-INF/html/customer options/navigationPage.jsp</result>       
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>          
+       </action>                                                                          
+<!-- end 需求管理模块-->
+
+<!-- 消息管理模块-->
+       <action name="checkPublisherMessagesAction" class="checkPublisherMessages">
+          <result name="success">/WEB-INF/html/information/checkAllMessage.jsp</result>       
+          <result name="error">/WEB-INF/html/customer options/messageNavigationPage.jsp</result>          
+       </action>
+       
+       <action name="checkReceiverMessagesAction" class="checkReceiverMessages">
+          <result name="success">/WEB-INF/html/information/checkAllMessage.jsp</result>       
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>          
+       </action>
+       
+       <action name="checkMessageAction" class="checkMessage">
+          <result name="success">/WEB-INF/html/information/detailMessage.jsp</result>       
+          <result name="error">/WEB-INF/html/customer options/navigationPage.jsp</result>          
+       </action>
+<!-- end 消息管理模块-->
+
+<!-- WEB-INF下界面转发Action -->
+       <action name="pfs" class="pfs">
+	       <result name="/WEB-INF/html/index/index.jsp">/WEB-INF/html/index/index.jsp</result>	
+	       <result name="/WEB-INF/html/index/loginIndex.jsp">/WEB-INF/html/index/loginIndex.jsp</result>	
+	              	       
+	       <result name="/WEB-INF/html/customers/userLogin.jsp">/WEB-INF/html/customers/userLogin.jsp</result>
+	       <result name="/WEB-INF/html/customers/userRegist.jsp">/WEB-INF/html/customers/userRegist.jsp</result>
+           <result name="/WEB-INF/html/customers/checkUserInfo.jsp">/WEB-INF/html/customers/checkUserInfo.jsp</result>	   	   	   	   
+	  	   <result name="/WEB-INF/html/customers/modifyUserInfo.jsp">/WEB-INF/html/customers/modifyUserInfo.jsp</result>
+	  	   <result name="/WEB-INF/html/customers/checkUserId.jsp">/WEB-INF/html/customers/checkUserId.jsp</result>
+	  	   <result name="/WEB-INF/html/customers/userFindIdByName.jsp">/WEB-INF/html/customers/userFindIdByName.jsp</result>
+	  	   <result name="/WEB-INF/html/customers/findUserPassword.jsp">/WEB-INF/html/customers/findUserPassword.jsp</result>
+	  	   <result name="/WEB-INF/html/customers/changeUserPassword.jsp">/WEB-INF/html/customers/changeUserPassword.jsp</result>	  	   	   	   	   	   
+	  	   
+	  	   <result name="/WEB-INF/html/admin/adminLogin.jsp">/WEB-INF/html/admin/adminLogin.jsp</result>	  	   	   	   	   	   
+	  	   <result name="/WEB-INF/html/admin/modifyPassword.jsp">/WEB-INF/html/admin/modifyPassword.jsp</result>	  	   	   	   	   	   
+	  	   <result name="/WEB-INF/html/admin/setName.jsp">/WEB-INF/html/admin/setName.jsp</result>	  	   	   	   	   	   
+	  	   <result name="/WEB-INF/html/admin/checkAllCustomers.jsp">/WEB-INF/html/admin/checkAllCustomers.jsp</result>	  	   	   	   	   	   
+	  	   <result name="/WEB-INF/html/admin/adminCheckUserInfo.jsp">/WEB-INF/html/admin/adminCheckUserInfo.jsp</result>	  	   	   	   	   	   	  	   
+	  	   <result name="/WEB-INF/html/admin/modifyUserInfo.jsp">/WEB-INF/html/admin/modifyUserInfo.jsp</result>	  	   	   	   	   	   	  	   
+	  	   <result name="/WEB-INF/html/admin/adminCheckRegUserInfo.jsp">/WEB-INF/html/admin/adminCheckRegUserInfo.jsp</result>	  	   	   	   	   	   	  	   
+	  	   <result name="/WEB-INF/html/admin/checkAllRegCustomer.jsp">/WEB-INF/html/admin/checkAllRegCustomer.jsp</result>	  	   	   	   	   	   	  	   
+	  	   
+	  	   <result name="/WEB-INF/html/admin/postNote.jsp">/WEB-INF/html/admin/postNote.jsp</result>	  	   	   	   	   	   	  	   	  	   
+	  	   <result name="/WEB-INF/html/admin/checkAllNotes.jsp">/WEB-INF/html/admin/checkAllNotes.jsp</result>	  	   	   	   	   	   	  	   	  	   
+	  	   <result name="/WEB-INF/html/admin/modifyNote.jsp">/WEB-INF/html/admin/modifyNote.jsp</result>	  	   	   	   	   	   	  	   	  	   
+	  	      
+	       <result name="/WEB-INF/html/action/createAction.jsp">/WEB-INF/html/action/createAction.jsp</result>	   	   
+	  	   <result name="/WEB-INF/html/action/checkAllActs.jsp">/WEB-INF/html/action/checkAllActs.jsp</result>	   	   
+	  	   <result name="/WEB-INF/html/action/modifyAction.jsp">/WEB-INF/html/action/modifyAction.jsp</result>	   	   	  	   
+
+	  	   <result name="/WEB-INF/html/need/postNeed.jsp">/WEB-INF/html/need/postNeed.jsp</result>	   	   	  	   	  	   
+	  	   <result name="/WEB-INF/html/need/modifyNeed.jsp">/WEB-INF/html/need/modifyNeed.jsp</result>	   	   	  	   	  	   
+	  	   
+	  	   <result name="/WEB-INF/html/link/postResLink.jsp">/WEB-INF/html/link/postResLink.jsp</result>	   	   	  	   	  	   
+	  	   <result name="/WEB-INF/html/link/updateResLink.jsp">/WEB-INF/html/link/updateResLink.jsp</result>	   	   	  	   	  	   
+	  	    	   	   
+	       <result name="/WEB-INF/html/customer options/navigationPage.jsp">/WEB-INF/html/customer options/navigationPage.jsp</result>	   	   
+	       <result name="/WEB-INF/html/customer options/resLinkNavigationPage.jsp">/WEB-INF/html/customer options/resLinkNavigationPage.jsp</result>	   	   
+	       <result name="/WEB-INF/html/customer options/needNavigationPage.jsp">/WEB-INF/html/customer options/needNavigationPage.jsp</result>	   	   
+	       <result name="/WEB-INF/html/customer options/actionNavigationPage.jsp">/WEB-INF/html/customer options/actionNavigationPage.jsp</result>	   	   
+	       <result name="/WEB-INF/html/customer options/messageNavigationPage.jsp">/WEB-INF/html/customer options/messageNavigationPage.jsp</result>	   	   
+	       <result name="/WEB-INF/html/adminSS/adminSubSystem.jsp">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>	   	   	   	   
+	   
+	       <result name="bsError">/WEB-INF/html/index/index.jsp</result>	   	   	   	   
+	       <result name="adminAuthorityError">/WEB-INF/html/adminSS/adminSubSystem.jsp</result>	   	   	   	   
+	       <result name="customerAuthorityError">/WEB-INF/html/customer options/navigationPage.jsp</result>
+           
+           <interceptor-ref name="pageInterceptStack"/>                  	       	   	   	   	   	   
+	   </action>
     </package>   
 </struts>

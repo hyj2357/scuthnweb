@@ -16,7 +16,7 @@ public class CheckTakePartInUserInfoAction extends ActionSupport{
     	Event evt = (Event)ctx.getSession().get("event");
         if(ad==null||evt==null) 
         	return ERROR;
-    	ctx.getSession().put("event_customer_map",this.actModule.checkTakePartInUserInfo(evt.getEvent_id(), ad.getId()));
+    	ctx.getSession().put("regMap",this.actModule.checkTakePartInUserInfo(evt.getEvent_id(), ad.getId()));
         return SUCCESS;
     }
 

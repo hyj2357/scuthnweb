@@ -21,7 +21,7 @@ public class AdminAdModuleImpl implements AdminAdModule{
 	public boolean modifyPassword(Admin ad, String admin_password,String admin_passwordM) {
 		//如果原密码错误
 		//返回false
-		if(adminDao.findByIdAndPassword(ad.getId(), admin_password)==null) 
+		if(!ad.getAdmin_password().equals(admin_password)) 
 			return false;
 		else {
 		    ad.setAdmin_password(admin_passwordM);

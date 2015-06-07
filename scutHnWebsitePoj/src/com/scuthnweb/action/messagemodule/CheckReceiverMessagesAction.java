@@ -11,6 +11,7 @@ public class CheckReceiverMessagesAction extends ActionSupport{
     private ActionContext ctx;
 	
     public String execute(){
+    	ctx = ActionContext.getContext();
     	BaseCustomer cs = (BaseCustomer)ctx.getSession().get("customer");
     	if(cs==null)
     		cs  = (BaseCustomer)ctx.getSession().get("admin");

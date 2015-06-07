@@ -7,11 +7,11 @@ import com.scuthnweb.service.interf.AdminUserModule;
 public class CheckRegInfoAction extends ActionSupport{
 	
 	private AdminUserModule adminUserModule;
-	private int customer_id;
+	private int id;
     
 	public String execute(){
 		ActionContext ctx = ActionContext.getContext();
-		ctx.put("regCustomer", this.adminUserModule.checkRegInfo(customer_id));
+		ctx.getSession().put("regCustomer", this.adminUserModule.checkRegInfo(id));
         return SUCCESS;	
     }
 	
@@ -21,6 +21,14 @@ public class CheckRegInfoAction extends ActionSupport{
 
 	public void setAdminUserModule(AdminUserModule adminUserModule) {
 		this.adminUserModule = adminUserModule;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

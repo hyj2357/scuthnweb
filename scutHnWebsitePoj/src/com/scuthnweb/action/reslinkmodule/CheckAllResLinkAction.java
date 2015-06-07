@@ -13,6 +13,7 @@ public class CheckAllResLinkAction extends ActionSupport{
     private ActionContext ctx;
 	
 	public String execute(){
+		ctx = ActionContext.getContext();
     	Map<String,String> resLinkMap = this.resLinkModule.checkAllResLink(ctx.getSession().get("admin")!=null);
     	ctx.getSession().put("resLinkMap", resLinkMap);
     	return SUCCESS;

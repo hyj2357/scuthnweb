@@ -60,10 +60,9 @@
     <!-- 配置 actModule 的 action 配置模板 -->
 	<bean id="actModuleTemplate" abstract="true" scope="prototype">
         <property name="actModule" ref="actModule"/>
-    </bean>
-    
+    </bean>    
 	<bean id="checkAct" class="com.scuthnweb.action.actmodule.CheckActAction"  parent="actModuleTemplate"/>    	
-	<bean id="checkUserInfo" class="com.scuthnweb.action.actmodule.CheckUserInfoAction"  parent="actModuleTemplate"/>
+	<bean id="checkUserInfo_actModule" class="com.scuthnweb.action.actmodule.CheckUserInfoAction"  parent="actModuleTemplate"/>
 	<bean id="checkAllAct" class="com.scuthnweb.action.actmodule.CheckAllActAction"  parent="actModuleTemplate"/>
 	<bean id="checkPublish" class="com.scuthnweb.action.actmodule.CheckPublishAction"  parent="actModuleTemplate"/>
 	<bean id="checkTakePartIn" class="com.scuthnweb.action.actmodule.CheckTakePartInAction"  parent="actModuleTemplate"/>
@@ -74,8 +73,7 @@
 	<bean id="createAct" class="com.scuthnweb.action.actmodule.CreateActAction"  parent="actModuleTemplate"/>
 	<bean id="deleteAct" class="com.scuthnweb.action.actmodule.DeleteActAction"  parent="actModuleTemplate"/>   
 	<bean id="modifyAct" class="com.scuthnweb.action.actmodule.ModifyActAction"  parent="actModuleTemplate"/>    
-	<bean id="takePartInAct" class="com.scuthnweb.action.actmodule.TakePartInActAction"  parent="actModuleTemplate"/>
-    
+	<bean id="takePartInAct" class="com.scuthnweb.action.actmodule.TakePartInActAction"  parent="actModuleTemplate"/>   
 <!--  end-actModule -->
 	
     <bean id="addAdmin_testAction" class="com.scuthnweb.action.adminadmodule.AddAdmin_testAction" scope="prototype">
@@ -92,7 +90,8 @@
 	
 	<bean id="setName" class="com.scuthnweb.action.adminadmodule.SetNameAction" scope="prototype">
        <property name="adminAdModule" ref="adminAdModule"/>
-	</bean>	
+	</bean>		
+	<bean id="adminIDLogOut" class="com.scuthnweb.action.adminadmodule.AdminIDLogOutAction" scope="prototype"/>
 	
 <!-- adminUserModule -->
     <!-- 配置 adminUserModule 的 action 配置模板 -->
@@ -105,6 +104,8 @@
     <bean id="logoutUserID" class="com.scuthnweb.action.adminusermodule.LogoutUserIDAction"  parent="adminUserModuleTemplate"/>
     <bean id="modifyUserInfo" class="com.scuthnweb.action.adminusermodule.ModifyUserInfoAction"  parent="adminUserModuleTemplate"/>    
     <bean id="op_regInfo" class="com.scuthnweb.action.adminusermodule.Op_regInfoAction"  parent="adminUserModuleTemplate"/>   
+    <bean id="checkAllUserInfo" class="com.scuthnweb.action.adminusermodule.CheckAllUserInfoAction"  parent="adminUserModuleTemplate"/>   
+    <bean id="checkUserInfo_adminUserModule" class="com.scuthnweb.action.adminusermodule.CheckUserInfoAction"  parent="adminUserModuleTemplate"/>   
 <!-- end adminUserModule -->
 
 
@@ -152,6 +153,7 @@
     <bean id="checkAllResLink" class="com.scuthnweb.action.reslinkmodule.CheckAllResLinkAction"  parent="resLinkModuleTemplate"/>
     <bean id="checkLink" class="com.scuthnweb.action.reslinkmodule.CheckLinkAction"  parent="resLinkModuleTemplate"/>
     <bean id="checkUploadLink" class="com.scuthnweb.action.reslinkmodule.CheckUploadLinkAction"  parent="resLinkModuleTemplate"/>
+    <bean id="checkVerifyLink" class="com.scuthnweb.action.reslinkmodule.CheckVerifyLinkAction"  parent="resLinkModuleTemplate"/>
     <bean id="delLink" class="com.scuthnweb.action.reslinkmodule.DelLinkAction"  parent="resLinkModuleTemplate"/>
     <bean id="op_link" class="com.scuthnweb.action.reslinkmodule.Op_linkAction"  parent="resLinkModuleTemplate"/>
     <bean id="updateLink" class="com.scuthnweb.action.reslinkmodule.UpdateLinkAction"  parent="resLinkModuleTemplate"/>
@@ -189,5 +191,14 @@
     <bean id="offlineNote" class="com.scuthnweb.action.notemodule.OfflineNoteAction"  parent="noteModuleTemplate"/>
     <bean id="postNote" class="com.scuthnweb.action.notemodule.PostNoteAction"  parent="noteModuleTemplate"/>
 <!--  end noteModule -->
-           	     
+
+<!-- 页面转发相关配置 -->
+    <bean id="csaut" class="com.scuthnweb.action.authority.CsPageAuthority"/> 
+    <bean id="adaut" class="com.scuthnweb.action.authority.AdPageAuthority"/>     
+    <bean id="pfs" class="com.scuthnweb.action.authority.PageForwardServlet" scope="prototype"/> 
+    <bean id="pageInterceptor" class="com.scuthnweb.action.authority.PageInterceptor" scope="prototype">
+        <property name="csAuthorityPage" ref="csaut"/>
+        <property name="adAuthorityPage" ref="adaut"/>       
+    </bean>
+<!-- end 页面转发相关配置 --> 	     
 </beans>

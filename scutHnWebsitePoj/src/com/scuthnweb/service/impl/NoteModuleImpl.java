@@ -28,7 +28,7 @@ public class NoteModuleImpl implements NoteModule{
 		Map<String,String> noteMap = new HashMap<String,String>();
 		List<Object[]> ls = this.noteDao.findAllNote(isAdmin?2:0);
 		for(Object[] itr:ls){
-			noteMap.put("["+NoteModuleTools.convertTypeToString((int)itr[2])+"]"+(String)itr[1], "CheckNoteAction?note="+itr[0]);
+			noteMap.put("["+NoteModuleTools.convertTypeToString((int)itr[2])+"]"+(String)itr[1], "checkNoteAction?note_id="+((Integer)itr[0]).toString());
 		}
 		return noteMap;
 	}
@@ -38,7 +38,7 @@ public class NoteModuleImpl implements NoteModule{
 		Map<String,String> noteMap = new HashMap<String,String>();
 		List<Object[]> ls = this.noteDao.findByNotePublisher(note_publisher.getId());
 		for(Object[] itr:ls){
-			noteMap.put("["+NoteModuleTools.convertTypeToString((int)itr[2])+"]"+(String)itr[1], "CheckNoteAction?note="+itr[0]);
+			noteMap.put("["+NoteModuleTools.convertTypeToString((int)itr[2])+"]"+(String)itr[1], "checkNoteAction?note_id="+((Integer)itr[0]).toString());
 		}
 		return noteMap;
 	}
@@ -59,7 +59,6 @@ public class NoteModuleImpl implements NoteModule{
 	public boolean offlineNote(Note note, Admin note_publisher) {
 		if(note.getNote_publisher().getId()!=note_publisher.getId())
 			return false;
-		note.setNote_state(1);
 		//更新公告信息状态
 		this.noteDao.updateNote(note);
 		return true;
